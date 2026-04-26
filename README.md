@@ -5,31 +5,34 @@ Proyecto enfocado a Sistema de Gestión de Smart Home (Domótica)
 
 ## Integrantes
 - Bryan Cárcamo Molina
-- Joaquín Macias Panichine
+- Joaquín Macías Panichine
 - Ian Fack Cárdenas
 
 ## Descripción
 Software con un panel de control centralizado para hogares inteligentes que permite automatizar luces, climatización y seguridad. El objetivo es permitir que el usuario cree "escenas" (por ejemplo: Escena 'Cine' que baja persianas y atenua luces) y que estas acciones se puedan programar, deshacer o ejecutar en cola de forma asíncrona.
 
-## Herramientas para ocupar
-- Figma
-- Canva
+## Herramientas ha ocupar
+- VS Code
+- Deno
 - Gemini
+- ChatGPT
 
 ## Herramientas de diseño
+- Figma
+- Canva
 
 ## Funciones que tendrá el software
 **Inicio de sesión (Usuario y contraseña):**
 Función para restablecer la contraseña.
 
-**Panel de habitaciones:**
-Acceso a los distintos habitaciones de la casa (cocina, living, baño, dormitorio, habitaciones, garaje, etc).
+**Historial de comandos:**
+El usuario podrá ver un historial de funciones y también podrá deshacer alguna función hecha.
 
 **Panel de seguridad:**
 El usuario puede acceder a las cámaras de seguridad y otros dispositivos de vigilancia de la casa.
 
 **Panel de dispositivos:**
-Acceso a dispositivos.
+Acceso a variados dispositivos.
 
 Funciones:
 - Cerrar las puertas de habitaciones (Abrir o cerrar las puertas).
@@ -75,7 +78,3 @@ Si el usuario aprieta “Escena salida al trabajo” logra que los dispositivos:
 "Escena Buenas Noches"
 
 - Todos los dispositivos se apagan.
-   
-**Historial de comandos:**
-El usuario podrá ver un historial de funciones y también podrá deshacer alguna función hecha.
-
