@@ -11,7 +11,7 @@ Proyecto enfocado a Sistema de Gestión de Smart Home (Domótica)
 ## Descripción
 Software con un panel de control centralizado para hogares inteligentes que permite automatizar luces, climatización y seguridad. El objetivo es permitir que el usuario cree "escenas" (por ejemplo: Escena 'Cine' que baja persianas y atenua luces) y que estas acciones se puedan programar, deshacer o ejecutar en cola de forma asíncrona.
 
-## Herramientas ha ocupar
+## Herramientas a ocupar
 - VS Code
 - Deno
 - Gemini
