@@ -1,3 +1,25 @@
 .home {
-  background-color: #f8f8f8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 40px;
+  gap: 27px;
+  background-color: #9CD5FF;
+}
+
+.columna {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+}
+
+.centro {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo {
+  width: 500px;
 }
