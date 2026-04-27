@@ -38,7 +38,7 @@ function Home() {
 
       {/* CENTRO */}
       <div className="centro">
-        <img src="/assets/Home/Domoserv.png" className="logo" />
+        <img src="/assets/Home/logo.png" className="logo" />
       </div>
 
       {/* DERECHA */}
