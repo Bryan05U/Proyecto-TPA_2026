@@ -46,14 +46,22 @@ function Home() {
         <Boton
           nombre="ESCENAS"
           estado={escenas}
-          onClick={() => setEscenas(!escenas)}
           ubicacion="arriba"
+          onClick={() => {
+            setEscenas(!escenas)
+            navigate("/escenas")
+          }}
+          
         />
         <Boton
           nombre="HISTORIAL"
           estado={historial}
-          onClick={() => setHistorial(!historial)}
           ubicacion="abajo"
+          onClick={() => {
+            setHistorial(!historial)
+            navigate("/historial")
+          }}
+          
         />
       </div>
 
