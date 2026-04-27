@@ -1,16 +1,17 @@
 .home {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   height: 100vh;
   padding: 40px;
-  background-color: #f8f8f8;
+  gap: 100px;
+  background-color: #9CD5FF;
 }
 
 .columna {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 0px;
 }
 
 .centro {
@@ -20,5 +21,5 @@
 }
 
 .logo {
-  width: 120px;
+  width: 500px;
 }

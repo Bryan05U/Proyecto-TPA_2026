@@ -14,33 +14,37 @@ function Home() {
       {/* IZQUIERDA */}
       <div className="columna">
         <Boton
-          nombre="Seguridad"
+          nombre="SEGURIDAD"
           estado={seguridad}
           onClick={() => setSeguridad(!seguridad)}
+          ubicacion="arriba"
         />
         <Boton
-          nombre="Dispositivos"
+          nombre="DISPOSITIVOS"
           estado={dispositivos}
           onClick={() => setDispositivos(!dispositivos)}
+          ubicacion="abajo"
         />
       </div>
 
       {/* CENTRO */}
       <div className="centro">
-        <img src="/logo.png" className="logo" />
+        <img src="/assets/Home/Domoserv.png" className="logo" />
       </div>
 
       {/* DERECHA */}
       <div className="columna">
         <Boton
-          nombre="Escenas"
+          nombre="ESCENAS"
           estado={escenas}
           onClick={() => setEscenas(!escenas)}
+          ubicacion="arriba"
         />
         <Boton
-          nombre="Historial"
+          nombre="HISTORIAL"
           estado={historial}
           onClick={() => setHistorial(!historial)}
+          ubicacion="abajo"
         />
       </div>
 
