@@ -1,4 +1,4 @@
-import "./Boton_diseno.css";
+import "./Boton.css";
 
 type BotonProps = {
   nombre: string;
@@ -12,7 +12,7 @@ function Boton({ nombre, estado, onClick }: BotonProps) {
       onClick={onClick}
       className={`boton ${estado ? "activo" : "desactivado"}`}
     >
-      {nombre}: {estado ? "ON" : "OFF"}
+      {nombre}
     </button>
   );
 }

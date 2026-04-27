@@ -1,14 +1,15 @@
 import { useState } from "react";
 import Boton from "./componentes/Boton";
-import "./home.css";
+import "./Home.css";
 
 function Home() {
   const [seguridad, setSeguridad] = useState(false);
+  const [dispositivos, setDispositivos] = useState(false);
   const [escenas, setEscenas] = useState(false);
   const [historial, setHistorial] = useState(false);
 
   return (
-    <div className="layout">
+    <div className="home">
 
       {/* IZQUIERDA */}
       <div className="columna">
@@ -18,9 +19,9 @@ function Home() {
           onClick={() => setSeguridad(!seguridad)}
         />
         <Boton
-          nombre="Escenas"
-          estado={escenas}
-          onClick={() => setEscenas(!escenas)}
+          nombre="Dispositivos"
+          estado={dispositivos}
+          onClick={() => setDispositivos(!dispositivos)}
         />
       </div>
 
