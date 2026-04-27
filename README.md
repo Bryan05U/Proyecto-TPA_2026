@@ -1,5 +1,5 @@
 # DomoServ
-<img width="500" height="500" alt="1777168773540" src="https://github.com/user-attachments/assets/334d38a2-26fb-4368-af00-a7fb46673946" />
+<img width="500" height="500" alt="4" src="https://github.com/user-attachments/assets/10f3c437-522f-413b-bd50-97381f2dc433" />
 
 Proyecto enfocado a Sistema de Gestión de Smart Home (Domótica)
 
