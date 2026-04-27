@@ -1,0 +1,16 @@
+.boton {
+  padding: 125px 250px;
+  font-size: 18px;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.activo {
+    background-color: #9CD5FF;
+}
+
+.desactivado {
+  background-color: #0C2B4E;
+}
