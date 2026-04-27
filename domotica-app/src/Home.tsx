@@ -1,8 +1,10 @@
 import { useState } from "react";
 import Boton from "./componentes/Boton";
 import "./Home.css";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
+  const navigate = useNavigate();
   const [seguridad, setSeguridad] = useState(false);
   const [dispositivos, setDispositivos] = useState(false);
   const [escenas, setEscenas] = useState(false);
@@ -16,14 +18,21 @@ function Home() {
         <Boton
           nombre="SEGURIDAD"
           estado={seguridad}
-          onClick={() => setSeguridad(!seguridad)}
           ubicacion="arriba"
+          onClick={() => {
+            setSeguridad(!seguridad);
+            navigate("/seguridad");
+          }}
         />
         <Boton
           nombre="DISPOSITIVOS"
           estado={dispositivos}
-          onClick={() => setDispositivos(!dispositivos)}
           ubicacion="abajo"
+          onClick={() => {
+            setDispositivos(!dispositivos)
+            navigate("/dispositivos")
+          }}
+          
         />
       </div>
 
