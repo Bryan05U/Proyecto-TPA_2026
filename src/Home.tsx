@@ -2,6 +2,7 @@ import { useState } from "react";
 import Boton from "./componentes/Boton";
 import "./Home.css";
 import { useNavigate } from "react-router-dom";
+import logo from "./assets/Home/logo_2.png";
 
 function Home() {
   const navigate = useNavigate();
@@ -38,7 +39,7 @@ function Home() {
 
       {/* CENTRO */}
       <div className="centro">
-        <img src="/assets/Home/logo.png" className="logo" />
+        <img src={logo} className="logo" />
       </div>
 
       {/* DERECHA */}
