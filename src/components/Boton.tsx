@@ -1,4 +1,4 @@
-import "./Boton.css";
+import "../styles/Boton.css";
 
 type BotonProps = {
   nombre: string;

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import Boton from "../components/Boton";
-import "./Home.css";
+import "../styles/Home.css";
 import { useNavigate } from "react-router-dom";
-import logo from "./assets/Home/logo_2.png";
+import logo from "../assets/Home/logo_2.png";
 
 function Home() {
   const navigate = useNavigate();
