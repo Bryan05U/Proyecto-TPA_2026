@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Boton from "./componentes/Boton";
+import Boton from "../components/Boton";
 import "./Home.css";
 import { useNavigate } from "react-router-dom";
 import logo from "./assets/Home/logo_2.png";
