@@ -1,14 +1,28 @@
 import { useNavigate } from "react-router-dom";
+import Boton from "../components/Boton";
+import "../styles/Layout.css"
 
 function Seguridad() {
   const navigate = useNavigate();
 
   return (
-    <div className="seguridad">
-      <button onClick={() => navigate("/camaras")}>Cámaras</button>
-      <button onClick={() => navigate("/camaras")}>Ventanas</button>
-      <button onClick={() => navigate("/camaras")}>Puertas</button>
-      <button onClick={() => navigate("/camaras")}>Temperatura</button>
+    <div className="layout layout-seguridad">
+      <Boton
+        nombre="Cámaras"
+        onClick={() => navigate("/camaras")}
+      />
+      <Boton 
+        nombre="Ventanas"
+        onClick={() => navigate("/ventanas")}
+      />
+      <Boton 
+        nombre="Puertas"
+        onClick={() => navigate("/puertas")}
+      />
+      <Boton 
+        nombre="Temperatura"
+        onClick={() => navigate("/temperatura")}
+      />
     </div>
   )
 }

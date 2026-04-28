@@ -6,20 +6,13 @@
   color: white;
   border-radius: 20px;
   border: 10px solid #0C2B4E;
+  background-color: #084283;
   cursor: pointer;
 
   display: flex;
   justify-content: center;
   align-items: flex-start;
   padding-top: 20px;
-}
-
-.activo {
-    background-color: #9CD5FF;
-}
-
-.desactivado {
-  background-color: #084283;
 }
 
 .arriba {

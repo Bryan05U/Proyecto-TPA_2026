@@ -1,11 +1,17 @@
-.home {
+.layout {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  background-color: #9CD5FF;
+}
+
+.layout-home {
   padding: 40px;
   gap: 27px;
-  background-color: #9CD5FF;
+}
+.layout-seguridad {
+  padding: 20%;
 }
 
 .columna {

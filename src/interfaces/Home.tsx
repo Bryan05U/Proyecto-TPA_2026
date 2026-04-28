@@ -1,39 +1,25 @@
-import { useState } from "react";
 import Boton from "../components/Boton";
-import "../styles/Home.css";
+import "../styles/Layout.css";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/Home/logo_2.png";
 
 function Home() {
   const navigate = useNavigate();
-  const [seguridad, setSeguridad] = useState(false);
-  const [dispositivos, setDispositivos] = useState(false);
-  const [escenas, setEscenas] = useState(false);
-  const [historial, setHistorial] = useState(false);
 
   return (
-    <div className="home">
+    <div className="layout layout-home">
 
       {/* IZQUIERDA */}
       <div className="columna">
         <Boton
           nombre="SEGURIDAD"
-          estado={seguridad}
           ubicacion="arriba"
-          onClick={() => {
-            setSeguridad(!seguridad);
-            navigate("/seguridad");
-          }}
+          onClick={() => navigate("/seguridad")}
         />
         <Boton
           nombre="DISPOSITIVOS"
-          estado={dispositivos}
           ubicacion="abajo"
-          onClick={() => {
-            setDispositivos(!dispositivos)
-            navigate("/dispositivos")
-          }}
-          
+          onClick={() => navigate("/dispositivos")}
         />
       </div>
 
@@ -46,23 +32,13 @@ function Home() {
       <div className="columna">
         <Boton
           nombre="ESCENAS"
-          estado={escenas}
           ubicacion="arriba"
-          onClick={() => {
-            setEscenas(!escenas)
-            navigate("/escenas")
-          }}
-          
+          onClick={() => navigate("/escenas")}
         />
         <Boton
           nombre="HISTORIAL"
-          estado={historial}
           ubicacion="abajo"
-          onClick={() => {
-            setHistorial(!historial)
-            navigate("/historial")
-          }}
-          
+          onClick={() => navigate("/historial")}
         />
       </div>
 
