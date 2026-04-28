@@ -1,9 +1,9 @@
 import { Routes, Route } from "react-router-dom";
-import Home from "./Home";
-import Seguridad from "./Seguridad";
-import Dispositivos from "./Dispositivos";
-import Escenas from "./Escenas";
-import Historial from "./Historial";
+import Home from "./interfaces/Home";
+import Seguridad from "./interfaces/Seguridad";
+import Dispositivos from "./interfaces/Dispositivos";
+import Escenas from "./interfaces/Escenas";
+import Historial from "./interfaces/Historial";
 
 function App() {
   return (
