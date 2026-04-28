@@ -7,22 +7,33 @@ function Seguridad() {
 
   return (
     <div className="layout layout-seguridad">
-      <Boton
-        nombre="Cámaras"
-        onClick={() => navigate("/camaras")}
-      />
-      <Boton 
-        nombre="Ventanas"
-        onClick={() => navigate("/ventanas")}
-      />
-      <Boton 
-        nombre="Puertas"
-        onClick={() => navigate("/puertas")}
-      />
-      <Boton 
-        nombre="Temperatura"
-        onClick={() => navigate("/temperatura")}
-      />
+
+      <div className="columna columna-seguridad">
+        <Boton
+          nombre="Cámaras"
+          onClick={() => navigate("/camaras")}
+          classNameExtra="boton boton-seguridad"
+        />
+        <Boton 
+          nombre="Ventanas"
+          onClick={() => navigate("/ventanas")}
+          classNameExtra="boton boton-seguridad"
+        />
+      </div>
+
+      <div className="columna columna-seguridad">
+        <Boton 
+          nombre="Puertas"
+          onClick={() => navigate("/puertas")}
+          classNameExtra="boton boton-seguridad"
+        />
+        <Boton 
+          nombre="Temperatura"
+          onClick={() => navigate("/temperatura")}
+          classNameExtra="boton boton-seguridad"
+        />
+      </div>
+
     </div>
   )
 }

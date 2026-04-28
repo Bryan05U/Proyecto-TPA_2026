@@ -15,6 +15,10 @@
   padding-top: 20px;
 }
 
+.boton-seguridad {
+  width: 450px;
+  height: 350px;
+}
 .arriba {
   border-radius: 20px 20px 0 0;
   border-bottom: 5px solid #0C2B4E;

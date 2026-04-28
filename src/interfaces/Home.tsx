@@ -1,7 +1,7 @@
 import Boton from "../components/Boton";
 import "../styles/Layout.css";
 import { useNavigate } from "react-router-dom";
-import logo from "../assets/Home/logo_2.png";
+import logo from "../assets/Home/logo.png";
 
 function Home() {
   const navigate = useNavigate();
@@ -13,12 +13,12 @@ function Home() {
       <div className="columna">
         <Boton
           nombre="SEGURIDAD"
-          ubicacion="arriba"
+          classNameExtra="arriba"
           onClick={() => navigate("/seguridad")}
         />
         <Boton
           nombre="DISPOSITIVOS"
-          ubicacion="abajo"
+          classNameExtra="abajo"
           onClick={() => navigate("/dispositivos")}
         />
       </div>
@@ -32,12 +32,12 @@ function Home() {
       <div className="columna">
         <Boton
           nombre="ESCENAS"
-          ubicacion="arriba"
+          classNameExtra="arriba"
           onClick={() => navigate("/escenas")}
         />
         <Boton
           nombre="HISTORIAL"
-          ubicacion="abajo"
+          classNameExtra="abajo"
           onClick={() => navigate("/historial")}
         />
       </div>

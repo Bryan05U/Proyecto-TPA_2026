@@ -3,14 +3,14 @@ import "../styles/Boton.css";
 type BotonProps = {
   nombre: string;
   onClick: () => void;
-  ubicacion?: string; 
+  classNameExtra?: string; 
 };
 
-function Boton({ nombre, onClick, ubicacion = "" }: BotonProps) {
+function Boton({ nombre, onClick, classNameExtra = "" }: BotonProps) {
   return (
     <button
       onClick={onClick}
-      className={`boton ${ubicacion}`}
+      className={`boton ${classNameExtra}`}
     >
       {nombre}
     </button>
