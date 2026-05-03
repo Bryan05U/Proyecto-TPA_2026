@@ -3,10 +3,10 @@
   height: 250px;
   font-size: 32px;
   font-weight: bold;
-  color: white;
+  color: var(--color-text);
   border-radius: 20px;
-  border: 10px solid #0C2B4E;
-  background-color: #084283;
+  border: 10px solid var(--color-borde);
+  background-color: var(--color-botones);
   cursor: pointer;
 
   display: flex;
@@ -16,21 +16,21 @@
 }
 
 .boton-seguridad {
-  width: 450px;
-  height: 350px;
+  width: 350px;
+  height: 250px;
 }
 .arriba {
   border-radius: 20px 20px 0 0;
-  border-bottom: 5px solid #0C2B4E;
+  border-bottom: 5px solid var(--color-borde);
 }
 
 .abajo {
   border-radius: 0 0 20px 20px;
-  border-top: 5px solid #0C2B4E;
+  border-top: 5px solid var(--color-borde);
 }
 
 .divisor {
   height: 5px;
   width: 100%;
-  background-color: #0C2B4E;
+  background-color: var(--color-borde);
 }

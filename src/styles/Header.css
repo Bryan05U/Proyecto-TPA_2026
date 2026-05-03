@@ -1,0 +1,14 @@
+.header {
+  width: 100%;
+  height: 70px;
+  background-color: var(--color-fondo-oscuro);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 5px solid var(--color-borde);
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 48px;
+}
