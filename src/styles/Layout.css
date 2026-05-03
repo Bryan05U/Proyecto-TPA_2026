@@ -1,13 +1,19 @@
 .layout {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
   height: 100vh;
   background-color: #9CD5FF;
 }
 
+.contenedor {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .layout-home {
-  padding: 40px;
   gap: 27px;
 }
 .layout-seguridad {
