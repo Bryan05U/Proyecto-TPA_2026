@@ -1,7 +1,13 @@
 :root {
     --color-fondo-claro: #9CD5FF;
     --color-fondo-oscuro: #084283;
-    --coolor-text: #9CD5FF;
+    --color-text: #9CD5FF;
     --color-botones: #084283;
     --color-borde: #0C2B4E;
+}
+
+body {
+  font-family: 'Roboto Flex', sans-serif;
+  background-color: var(--color-fondo-claro);
+  color: var(--color-text);
 }
