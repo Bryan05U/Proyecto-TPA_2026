@@ -3,7 +3,7 @@
   height: 250px;
   font-size: 32px;
   font-weight: bold;
-  color: white;
+  color: var(--color-text);
   border-radius: 20px;
   border: 10px solid var(--color-borde);
   background-color: var(--color-botones);
@@ -16,8 +16,8 @@
 }
 
 .boton-seguridad {
-  width: 450px;
-  height: 350px;
+  width: 350px;
+  height: 250px;
 }
 .arriba {
   border-radius: 20px 20px 0 0;
