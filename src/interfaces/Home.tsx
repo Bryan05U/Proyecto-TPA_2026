@@ -15,13 +15,8 @@ function Home() {
 
   return (
     <div className="layout">
-      <Header titulo="DOMOSERV" />
 
-      {/* Sección de Bienvenida e Icono Configuración */}
-      <div className="bienvenida-container" style={{ display: 'flex', justifyContent: 'space-between', padding: '20px 50px', alignItems: 'center' }}>
-        <h2 style={{ fontSize: '20px' }}>Bienvenido/a ____________________</h2>
-        <img src={logoConfig} alt="Config" style={{ width: '40px', cursor: 'pointer' }} />
-      </div>
+      <Header titulo="DOMOSERV" />
       
       <div className="contenedor layout-home">
 
@@ -30,20 +25,18 @@ function Home() {
           <Boton
             nombre="SEGURIDAD"
             classNameExtra="arriba"
-            icono={logoCamara}
             onClick={() => navigate("/seguridad")}
           />
           <Boton
             nombre="DISPOSITIVOS"
             classNameExtra="abajo"
-            icono={logoDispositivos}
             onClick={() => navigate("/dispositivos")}
           />
         </div>
 
         {/* CENTRO */}
         <div className="centro">
-          <img src={logo} className="logo" alt="Logo Central" />
+          <img src={logo} className="logo" />
         </div>
 
         {/* DERECHA */}
@@ -51,18 +44,17 @@ function Home() {
           <Boton
             nombre="ESCENAS"
             classNameExtra="arriba"
-            icono={logoEscenas}
             onClick={() => navigate("/escenas")}
           />
           <Boton
             nombre="HISTORIAL"
             classNameExtra="abajo"
-            icono={logoHistorial}
             onClick={() => navigate("/historial")}
           />
         </div>
 
       </div>
+
     </div>
   );
 }
