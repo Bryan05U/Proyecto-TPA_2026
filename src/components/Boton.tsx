@@ -1,20 +1,19 @@
-import "../styles/Boton.css";
+import React from 'react';
 
-type BotonProps = {
+interface BotonProps {
   nombre: string;
   onClick: () => void;
-  classNameExtra?: string; 
-};
+  classNameExtra?: string;
+  icono?: string;
+}
 
-function Boton({ nombre, onClick, classNameExtra = "" }: BotonProps) {
+const Boton: React.FC<BotonProps> = ({ nombre, onClick, classNameExtra, icono }) => {
   return (
-    <button
-      onClick={onClick}
-      className={`boton ${classNameExtra}`}
-    >
-      {nombre}
+    <button className={`boton ${classNameExtra}`} onClick={onClick}>
+      <span>{nombre}</span>
+      {icono && <img src={icono} alt={nombre} />}
     </button>
   );
-}
+};
 
 export default Boton;

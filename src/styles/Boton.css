@@ -1,36 +1,44 @@
-.boton {
-  width: 250px;
-  height: 250px;
-  font-size: 32px;
-  font-weight: bold;
-  color: var(--color-text);
-  border-radius: 20px;
-  border: 10px solid var(--color-borde);
-  background-color: var(--color-botones);
-  cursor: pointer;
+/* Esto va en Boton.css */
 
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding-top: 20px;
+button.boton-principal, 
+.columna button, 
+button.boton {
+    background-color: #0A377D !important; /* Azul oscuro forzado */
+    width: 250px !important;
+    height: 250px !important;
+    border: 4px solid #000 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 25px !important;
+    box-sizing: border-box !important;
+    cursor: pointer !important;
 }
 
-.boton-seguridad {
-  width: 400px;
-  height: 250px;
+/* El texto en celeste */
+button span, 
+.boton-texto {
+    color: #80DFFF !important; 
+    font-weight: bold !important;
+    font-size: 20px !important;
+    text-transform: uppercase !important;
+    font-family: Arial, sans-serif !important;
 }
+
+/* Los iconos en blanco para que se vean sobre el azul */
+button img, 
+.boton-icono {
+    height: 120px !important;
+    width: auto !important;
+    filter: brightness(0) invert(1) !important;
+}
+
+/* Bordes redondeados */
 .arriba {
-  border-radius: 20px 20px 0 0;
-  border-bottom: 5px solid var(--color-borde);
+    border-radius: 30px 30px 0 0 !important;
 }
 
 .abajo {
-  border-radius: 0 0 20px 20px;
-  border-top: 5px solid var(--color-borde);
-}
-
-.divisor {
-  height: 5px;
-  width: 100%;
-  background-color: var(--color-borde);
+    border-radius: 0 0 30px 30px !important;
 }
