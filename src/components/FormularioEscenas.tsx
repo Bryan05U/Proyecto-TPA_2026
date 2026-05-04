@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "../styles/Formulario.css";
+import "../styles/FormularioEscenas.css";
 
 type Props = {
   onCrear: (nombre: string) => void;
