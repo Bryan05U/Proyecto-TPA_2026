@@ -35,7 +35,7 @@ function Escenas() {
 
       <Header titulo="ESCENAS" />
 
-      <div className="contenedor layout-seguridad">
+      <div className="contenedor contenedor-escenas layout-escenas">
 
         {/* ESCENAS */}
         {escenas.map((escena, index) => (
