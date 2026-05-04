@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Boton from "../components/Boton";
 import Header from "../components/Header";
-import FormularioEscena from "../components/FormularioEscena";
+import FormularioEscena from "../components/FormularioEscenas";
 import { Escena } from "../domain/Escena";
 import "../styles/Layout.css";
 
