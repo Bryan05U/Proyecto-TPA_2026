@@ -3,8 +3,9 @@
     --color-fondo-oscuro: #084283;
     --color-text: #9CD5FF;
     --color-botones: #084283;
-    --color-iconos: #0C2B4E;
+    --color-botones-oscuros:#0C2B4E;
     --color-borde: #0C2B4E;
+    --color-borde-oscuro: black;
 }
 
 body {

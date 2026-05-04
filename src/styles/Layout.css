@@ -12,6 +12,11 @@
   align-items: center;
 }
 
+.contenedor-escenas {
+  align-items: flex-start;
+  padding-top: 40px;
+}
+
 .layout-home {
   gap: 27px;
 }

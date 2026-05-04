@@ -7,7 +7,7 @@ type Props = {
 };
 
 function FormularioEscena({ onCrear, onCerrar }: Props) {
-  const [nombre, setNombre] = useState("");
+  const [nombre, setNombre] = useState("Nueva Escena");
 
   const handleCrear = () => {
     if (nombre.trim() === "") return;
@@ -16,21 +16,41 @@ function FormularioEscena({ onCrear, onCerrar }: Props) {
   };
 
   return (
-    <div className="formulario">
-      <h2>Crear escena</h2>
+    <div className="overlay">
+      <div className="formulario-card">
 
-      <input
-        type="text"
-        placeholder="Nombre de la escena"
-        value={nombre}
-        onChange={(e) => setNombre(e.target.value)}
-      />
+        <button className="btn-cerrar" onClick={onCerrar}>
+          ✕
+        </button>
 
-      <p>(Dispositivos aquí)</p>
+        <div className="formulario-contenido">
 
-      <div className="botones-form">
-        <button onClick={handleCrear}>Listo</button>
-        <button onClick={onCerrar}>Cancelar</button>
+          {/* IZQUIERDA (ICONO) */}
+          <div className="icono-grande">
+            <div className="placeholder-icono"></div>
+          </div>
+
+          <div className="contenido">
+
+            <div className="top">
+              <input
+                className="input-nombre"
+                value={nombre}
+                onChange={(e) => setNombre(e.target.value)}
+              />
+
+              <button className="btn-listo" onClick={handleCrear}>
+                LISTO
+              </button>
+            </div>
+
+            <div className="bottom">
+              <button className="btn-agregar">+</button>
+            </div>
+
+          </div>
+        </div>
+
       </div>
     </div>
   );

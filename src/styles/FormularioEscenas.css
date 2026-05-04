@@ -1,22 +1,135 @@
-.formulario {
+/* 🔲 FONDO OSCURO */
+.overlay {
   position: fixed;
-  top: 30%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: white;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 🟦 CARD PRINCIPAL */
+.formulario-card {
+  position: relative;
+
+  width: 900px;
+  height: 500px;
+
+  background-color: var(--color-botones);
+  border: 6px solid var(--color-borde);
+  border-radius: 20px;
+
   padding: 20px;
-  border-radius: 10px;
-  z-index: 100;
 }
 
-.formulario input {
-  width: 100%;
-  padding: 8px;
-  margin: 10px 0;
+/* ❌ BOTÓN CERRAR */
+.btn-cerrar {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+
+  width: 50px;
+  height: 50px;
+
+  border-radius: 12px;
+  border: none;
+
+  background: transparent;
+  color: #cde6ff;
+
+  font-size: 28px;
+  font-weight: bold;
+
+  cursor: pointer;
 }
 
-.botones-form {
+.btn-cerrar:hover {
+  background-color: rgba(255,255,255,0.1);
+}
+
+/* 🧱 CONTENEDOR INTERNO */
+.formulario-contenido {
+  display: flex;
+  height: 100%;
+  gap: 20px;
+}
+
+/* 🧊 ICONO */
+.icono-grande {
+  width: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.placeholder-icono {
+  width: 200px;
+  height: 150px;
+  background-color: #9bbcd4;
+  border-radius: 20px;
+}
+
+/* 📄 CONTENIDO DERECHO */
+.contenido {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* 🔝 TOP */
+.top {
   display: flex;
   justify-content: space-between;
-  gap: 10px;
+  align-items: center;
+}
+
+/* ✏️ INPUT */
+.input-nombre {
+  font-size: 32px;
+  font-weight: bold;
+
+  background: transparent;
+  border: none;
+  color: #cde6ff;
+
+  outline: none;
+}
+
+/* 🔘 BOTÓN LISTO */
+.btn-listo {
+  width: 180px;
+  height: 70px;
+
+  border-radius: 20px;
+  border: 3px solid var(--color-borde);
+
+  background-color: #0c2b4e;
+  color: #cde6ff;
+
+  font-size: 22px;
+  font-weight: bold;
+
+  cursor: pointer;
+}
+
+/* ➕ BOTÓN AGREGAR */
+.bottom {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.btn-agregar {
+  width: 120px;
+  height: 120px;
+
+  border-radius: 20px;
+  border: 3px solid var(--color-borde);
+
+  background-color: #0c2b4e;
+  color: #cde6ff;
+
+  font-size: 50px;
+  cursor: pointer;
 }
