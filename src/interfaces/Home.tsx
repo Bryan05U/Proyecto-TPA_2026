@@ -24,11 +24,13 @@ function Home() {
         <div className="columna">
           <Boton
             nombre="SEGURIDAD"
+            icono={logoCamara}
             classNameExtra="arriba"
             onClick={() => navigate("/seguridad")}
           />
           <Boton
             nombre="DISPOSITIVOS"
+            icono={logoDispositivos}
             classNameExtra="abajo"
             onClick={() => navigate("/dispositivos")}
           />
@@ -43,11 +45,13 @@ function Home() {
         <div className="columna">
           <Boton
             nombre="ESCENAS"
+            icono={logoEscenas}
             classNameExtra="arriba"
             onClick={() => navigate("/escenas")}
           />
           <Boton
             nombre="HISTORIAL"
+            icono={logoHistorial}
             classNameExtra="abajo"
             onClick={() => navigate("/historial")}
           />
