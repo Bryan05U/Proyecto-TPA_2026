@@ -1,14 +1,29 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Boton from "../components/Boton";
-import "../styles/Layout.css";
 import Header from "../components/Header";
-import FormularioEscena from "../components/FormularioEscenas";
+import FormularioEscena from "../components/FormularioEscena";
 import { Escena } from "../domain/Escena";
+import "../styles/Layout.css";
 
 function Escenas() {
-  const [escenas, setEscenas] = useState<Escena[]>([]);
+  // 🔹 Cargar desde localStorage
+  const [escenas, setEscenas] = useState<Escena[]>(() => {
+    const data = localStorage.getItem("escenas");
+
+    if (!data) return [];
+
+    const parsed = JSON.parse(data);
+    return parsed.map((e: any) => Escena.fromJSON(e));
+  });
+
   const [mostrarFormulario, setMostrarFormulario] = useState(false);
 
+  // 🔹 Guardar automáticamente
+  useEffect(() => {
+    localStorage.setItem("escenas", JSON.stringify(escenas));
+  }, [escenas]);
+
+  // 🔹 Crear escena
   const agregarEscena = (nombre: string) => {
     const nueva = new Escena(nombre);
     setEscenas([...escenas, nueva]);
@@ -22,7 +37,7 @@ function Escenas() {
 
       <div className="contenedor layout-seguridad">
 
-        {/* ESCENAS EXISTENTES */}
+        {/* ESCENAS */}
         {escenas.map((escena, index) => (
           <Boton
             key={index}
