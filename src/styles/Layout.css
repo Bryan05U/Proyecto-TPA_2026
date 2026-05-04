@@ -15,8 +15,14 @@
 .layout-home {
   gap: 27px;
 }
+
 .layout-seguridad {
   gap: 10px;
+}
+
+.layout-escenas {
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 .columna {
