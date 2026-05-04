@@ -4,6 +4,7 @@ import "../styles/Layout.css";
 import Header from "../components/Header";
 import FormularioEscena from "../components/FormularioEscenas";
 import { Escena } from "../domain/Escena";
+import { useEffect } from "react";
 
 function Escenas() {
   const [escenas, setEscenas] = useState<Escena[]>([]);
