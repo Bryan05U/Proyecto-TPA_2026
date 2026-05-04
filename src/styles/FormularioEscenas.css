@@ -1,22 +1,53 @@
 .formulario {
   position: fixed;
-  top: 30%;
+  top: 50%;
   left: 50%;
+
+  width: 1000px;
+  min-height: 450px;
+
   transform: translate(-50%, -50%);
-  background-color: white;
+  background-color: var(--color-botones);
+
   padding: 20px;
-  border-radius: 10px;
+
+  border-radius: 20px;
+  border: 5px solid var(--color-borde);
   z-index: 100;
 }
 
 .formulario input {
   width: 100%;
-  padding: 8px;
-  margin: 10px 0;
+  padding: 10px;
+
+  border-radius: 10px;
+  border: 3px solid var(--color-borde);
+
+  background-color: white;
+  font-size: 16px;
 }
 
 .botones-form {
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
   gap: 10px;
+}
+
+.botones-form button {
+  width: 200px;
+  height: 100px;
+
+  color: var(--color-text);
+
+  font-size: 30px;
+  font-weight: bold;
+
+  padding: 10px;
+
+  border-radius: 20px;
+  border: 5px solid var(--color-borde-oscuro);
+
+  background-color: var(--color-botones-oscuros);
+  cursor: pointer;
 }
