@@ -4,7 +4,7 @@ type BotonProps = {
   nombre: string;
   onClick: () => void;
   classNameExtra?: string;
-  icono?: string;
+  icono?: React.ReactNode;
 };
 
 function Boton({ nombre, onClick, classNameExtra = "", icono }: BotonProps) {
@@ -14,9 +14,11 @@ function Boton({ nombre, onClick, classNameExtra = "", icono }: BotonProps) {
       className={`boton ${classNameExtra}`}
     >
       {nombre}
-      
+
       {icono && (
-        <img src={icono} className="icono-boton" />
+        <div className="icono-boton">
+          {icono}
+        </div>
       )}
     </button>
   );
