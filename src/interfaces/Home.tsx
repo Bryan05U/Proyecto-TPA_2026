@@ -7,7 +7,6 @@ import IconoCamara from "../assets/Home/Logo Camara.svg?react";
 import IconoDispositivos from "../assets/Home/Logo Dispositivos.svg?react";
 import IconoEscenas from "../assets/Home/Logo Escena.svg?react";
 import IconoHistorial from "../assets/Home/Logo Historial (Home).svg?react";
-import logoConfig from "../assets/Home/Configuracion.svg";
 import Header from "../components/Header";
 
 function Home() {
