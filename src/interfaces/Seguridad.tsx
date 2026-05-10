@@ -1,9 +1,12 @@
 import { useNavigate } from "react-router-dom";
+
 import Boton from "../components/Boton";
-import "../styles/Layout.css"
 import Header from "../components/Header";
 
+import "../styles/Layout.css";
+
 function Seguridad() {
+
   const navigate = useNavigate();
 
   return (
@@ -11,38 +14,46 @@ function Seguridad() {
 
       <Header titulo="SEGURIDAD" />
 
-      <div className="contenedor layout-seguridad" >
+      <div className="contenedor layout-seguridad">
 
+        {/* IZQUIERDA */}
         <div className="columna columna-seguridad">
+
           <Boton
-            nombre="Cámaras"
-            onClick={() => navigate("/camaras")}
-            classNameExtra="boton boton-seguridad"
+            nombre="CÁMARAS"
+            onClick={() => navigate("/seguridad/camaras")}
+            classNameExtra="boton-seguridad"
           />
-          <Boton 
-            nombre="Ventanas"
-            onClick={() => navigate("/ventanas")}
-            classNameExtra="boton boton-seguridad"
+
+          <Boton
+            nombre="VENTANAS"
+            onClick={() => navigate("/seguridad/ventanas")}
+            classNameExtra="boton-seguridad"
           />
+
         </div>
 
+        {/* DERECHA */}
         <div className="columna columna-seguridad">
-          <Boton 
-            nombre="Puertas"
-            onClick={() => navigate("/puertas")}
-            classNameExtra="boton boton-seguridad"
+
+          <Boton
+            nombre="PUERTAS"
+            onClick={() => navigate("/seguridad/puertas")}
+            classNameExtra="boton-seguridad"
           />
-          <Boton 
-            nombre="Temperatura"
-            onClick={() => navigate("/temperatura")}
-            classNameExtra="boton boton-seguridad"
+
+          <Boton
+            nombre="TEMPERATURA"
+            onClick={() => navigate("/seguridad/temperatura")}
+            classNameExtra="boton-seguridad"
           />
+
         </div>
 
       </div>
 
     </div>
-  )
+  );
 }
 
 export default Seguridad;
