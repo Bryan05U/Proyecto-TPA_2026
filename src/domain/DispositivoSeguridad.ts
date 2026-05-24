@@ -1,5 +1,4 @@
-import { Dispositivo }
-from "./Dispositivo";
+import { Dispositivo } from "./Dispositivo";
 
 export class DispositivoSeguridad
 extends Dispositivo {

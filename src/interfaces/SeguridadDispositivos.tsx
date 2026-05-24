@@ -1,20 +1,21 @@
-import { useEffect, useState }
-from "react";
+import {
+  useEffect,
+  useState
+} from "react";
 
-import { useParams }
-from "react-router-dom";
+import {
+  useParams
+} from "react-router-dom";
 
-import Header
-from "../components/Header";
-
-import Boton
-from "../components/Boton";
-
-import CardDispositivo
-from "../components/CardDispositivo";
+import Header from "../components/Header";
+import Boton from "../components/Boton";
+import CardDispositivo from "../components/CardDispositivo";
 
 import { DispositivoSeguridad }
 from "../domain/DispositivoSeguridad";
+
+import { DispositivoFactory }
+from "../factory/DispositivoFactory";
 
 import "../styles/Layout.css";
 
@@ -60,7 +61,7 @@ function SeguridadDispositivos() {
     if (!nombre) return;
 
     const nuevo =
-      new DispositivoSeguridad(
+      DispositivoFactory.crear(
         nombre,
         tipo || ""
       );
