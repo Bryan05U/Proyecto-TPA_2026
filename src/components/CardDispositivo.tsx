@@ -30,22 +30,33 @@ function CardDispositivo({
 
     <div className="card-dispositivo">
 
-      {/* BOTÓN */}
-      <button
-        className={`
-          dispositivo-btn
-          ${dispositivo.activo
-            ? "activo"
-            : "desactivado"}
-        `}
-        onClick={onToggle}
-      >
+      {/* CARD */}
+      <div className={`
+        dispositivo-card
+        ${dispositivo.activo
+          ? "activo"
+          : "desactivado"}
+      `}>
 
+        {/* ICONO */}
+        <div className="icono-dispositivo">
+
+          {dispositivo.tipo === "camaras" && "📷"}
+
+          {dispositivo.tipo === "ventanas" && "🪟"}
+
+          {dispositivo.tipo === "puertas" && "🚪"}
+
+          {dispositivo.tipo === "temperatura" && "🌡️"}
+
+        </div>
+
+        {/* NOMBRE */}
         <h2>
           {dispositivo.nombre}
         </h2>
 
-      </button>
+      </div>
 
       {/* ACCIONES */}
       <div className="acciones">
