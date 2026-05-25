@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import "../styles/FormularioDispositivo.css";
+import IconoCerrar from "../assets/Botones/Logo_Cerrar.svg?react"
 
 type Props = {
 
@@ -41,7 +42,7 @@ function FormularioDispositivo({
           className="btn-cerrar"
           onClick={onCerrar}
         >
-          ✕
+          <IconoCerrar />
         </button>
 
         <h2>
