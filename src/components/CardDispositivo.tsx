@@ -1,12 +1,14 @@
 import { DispositivoSeguridad } from "../domain/DispositivoSeguridad";
 
+// Importando iconos de botones
 import IconoCamara from "../assets/Seguridad/Logo_Camara.svg?react";
-
 import IconoVentana from "../assets/Seguridad/Logo_Camara.svg?react";
-
 import IconoPuerta from "../assets/Seguridad/Logo_Puerta.svg?react";
-
 import IconoTemperatura from "../assets/Seguridad/Logo_Temperatura.svg?react";
+
+// Importando iconos de interacción
+import IconoEditar from "../assets/Botones/Logo_Editar.svg?react";
+import IconoBorrar from "../assets/Botones/Logo_Borrar.svg?react";
 
 import "../styles/Boton.css"
 import "../styles/CardDispositivo.css";
@@ -43,46 +45,56 @@ function CardDispositivo({
         : "desactivado"}
     `}>
 
+      {/* NOMBRE */}
+      <h2 className="nombre-dispositivo">
+
+        {dispositivo.nombre}
+
+      </h2>
+
       {/* ICONO */}
       <div className="icono-dispositivo">
 
-        {dispositivo.tipo === "camaras" && <IconoCamara />}
+        {dispositivo.tipo === "camaras" &&
+          <IconoCamara />
+        }
 
-        {dispositivo.tipo === "ventanas" && <IconoVentana />}
+        {dispositivo.tipo === "ventanas" &&
+          <IconoVentana />
+        }
 
-        {dispositivo.tipo === "puertas" && <IconoPuerta />}
+        {dispositivo.tipo === "puertas" &&
+          <IconoPuerta />
+        }
 
-        {dispositivo.tipo === "temperatura" && <IconoTemperatura />}
+        {dispositivo.tipo === "temperatura" &&
+          <IconoTemperatura />
+        }
 
       </div>
 
-      {/* NOMBRE */}
-      <h2>
-        {dispositivo.nombre}
-      </h2>
+      {/* SWITCH */}
+      <label className="switch">
 
-      {/* ACCIONES */}
-      <div className="acciones">
+        <input
+          type="checkbox"
+          checked={dispositivo.activo}
+          onChange={onToggle}
+        />
 
-        {/* SWITCH */}
-        <label className="switch">
+        <span className="slider"></span>
 
-          <input
-            type="checkbox"
-            checked={dispositivo.activo}
-            onChange={onToggle}
-          />
+      </label>
 
-          <span className="slider"></span>
-
-        </label>
+      {/* PANEL ACCIONES */}
+      <div className="panel-acciones">
 
         {/* EDITAR */}
         <button
           className="accion-btn"
           onClick={onEditar}
         >
-          ✏️
+          <IconoEditar />
         </button>
 
         {/* ELIMINAR */}
@@ -90,7 +102,7 @@ function CardDispositivo({
           className="accion-btn"
           onClick={onEliminar}
         >
-          🗑️
+          <IconoBorrar />
         </button>
 
       </div>
