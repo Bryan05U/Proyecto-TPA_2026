@@ -1,16 +1,30 @@
-import { DispositivoSeguridad } from "../domain/DispositivoSeguridad";
+import BaseCard from "./BaseCard";
 
-// Importando iconos de botones
-import IconoCamara from "../assets/Seguridad/Logo_Camara.svg?react";
-import IconoVentana from "../assets/Seguridad/Logo_Ventana.svg?react";
-import IconoPuerta from "../assets/Seguridad/Logo_Puerta.svg?react";
-import IconoTemperatura from "../assets/Seguridad/Logo_Temperatura.svg?react";
+import { DispositivoSeguridad }
+from "../domain/DispositivoSeguridad";
 
-// Importando iconos de interacción
-import IconoEditar from "../assets/Botones/Logo_Editar.svg?react";
-import IconoBorrar from "../assets/Botones/Logo_Borrar.svg?react";
+// ICONOS
 
-import "../styles/Boton.css"
+import IconoCamara from
+"../assets/Seguridad/Logo_Camara.svg?react";
+
+import IconoVentana from
+"../assets/Seguridad/Logo_Ventana.svg?react";
+
+import IconoPuerta from
+"../assets/Seguridad/Logo_Puerta.svg?react";
+
+import IconoTemperatura from
+"../assets/Seguridad/Logo_Temperatura.svg?react";
+
+// BOTONES
+
+import IconoEditar from
+"../assets/Botones/Logo_Editar.svg?react";
+
+import IconoBorrar from
+"../assets/Botones/Logo_Borrar.svg?react";
+
 import "../styles/CardDispositivo.css";
 
 type Props = {
@@ -36,78 +50,76 @@ function CardDispositivo({
 
 }: Props) {
 
+  const renderIcono = () => {
+
+    switch (dispositivo.tipo) {
+
+      case "camaras":
+        return <IconoCamara />;
+
+      case "ventanas":
+        return <IconoVentana />;
+
+      case "puertas":
+        return <IconoPuerta />;
+
+      case "temperatura":
+        return <IconoTemperatura />;
+
+      default:
+        return null;
+    }
+  };
+
   return (
 
-    <div className={`
-      dispositivo-card
-      ${dispositivo.activo
-        ? "activo"
-        : "desactivado"}
-    `}>
+    <BaseCard
 
-      {/* NOMBRE */}
-      <h2 className="nombre-dispositivo">
+      titulo={dispositivo.nombre}
 
-        {dispositivo.nombre}
+      acciones={
+        <>
 
-      </h2>
+          <button
+            className="accion-btn"
+            onClick={onEditar}
+          >
+            <IconoEditar />
+          </button>
 
-      {/* ICONO */}
-      <div className="icono-dispositivo">
+          <button
+            className="accion-btn"
+            onClick={onEliminar}
+          >
+            <IconoBorrar />
+          </button>
 
-        {dispositivo.tipo === "camaras" &&
-          <IconoCamara />
-        }
+        </>
+      }
 
-        {dispositivo.tipo === "ventanas" &&
-          <IconoVentana />
-        }
+    >
 
-        {dispositivo.tipo === "puertas" &&
-          <IconoPuerta />
-        }
+      <div className="contenido-dispositivo">
 
-        {dispositivo.tipo === "temperatura" &&
-          <IconoTemperatura />
-        }
+        <div className="icono-dispositivo">
+          {renderIcono()}
+        </div>
 
-      </div>
+        <label className="switch">
 
-      {/* SWITCH */}
-      <label className="switch">
+          <input
+            type="checkbox"
+            checked={dispositivo.activo}
+            onChange={onToggle}
+          />
 
-        <input
-          type="checkbox"
-          checked={dispositivo.activo}
-          onChange={onToggle}
-        />
+          <span className="slider"></span>
 
-        <span className="slider"></span>
-
-      </label>
-
-      {/* PANEL ACCIONES */}
-      <div className="panel-acciones">
-
-        {/* EDITAR */}
-        <button
-          className="accion-btn"
-          onClick={onEditar}
-        >
-          <IconoEditar />
-        </button>
-
-        {/* ELIMINAR */}
-        <button
-          className="accion-btn"
-          onClick={onEliminar}
-        >
-          <IconoBorrar />
-        </button>
+        </label>
 
       </div>
 
-    </div>
+    </BaseCard>
   );
 }
 
