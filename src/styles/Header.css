@@ -1,14 +1,59 @@
 .header {
+
   width: 100%;
+
   height: 70px;
-  background-color: var(--color-fondo-oscuro);
+
+  background-color:
+    var(--color-fondo-oscuro);
+
   display: flex;
+
   align-items: center;
   justify-content: center;
-  border-bottom: 5px solid var(--color-borde);
+
+  border-bottom: 5px solid
+    var(--color-borde);
+
+  position: relative;
 }
 
 .header h1 {
+
   margin: 0;
+
   font-size: 48px;
+
+  color: white;
+}
+
+/* BOTÓN VOLVER */
+
+.boton-volver {
+
+  position: absolute;
+
+  left: 20px;
+
+  width: 70px;
+  height: 70px;
+
+  border: none;
+
+  background: transparent;
+
+  cursor: pointer;
+
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+}
+
+.boton-volver svg {
+
+  width: 100%;
+  height: 100%;
+
+  fill: var(--color-iconos);
 }

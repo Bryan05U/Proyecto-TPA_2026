@@ -1,67 +1,168 @@
-import { useState, useEffect } from "react";
-import Boton from "../components/Boton";
+import { useEffect, useState } from "react";
+
 import Header from "../components/Header";
+import Boton from "../components/Boton";
+import CardEscena from "../components/CardEscena";
 import FormularioEscena from "../components/FormularioEscenas";
+
 import { Escena } from "../domain/Escena";
+
+import IconoAnadir from
+"../assets/Botones/Logo_Añadir.svg?react";
+
 import "../styles/Layout.css";
 
 function Escenas() {
-  // 🔹 Cargar desde localStorage
-  const [escenas, setEscenas] = useState<Escena[]>(() => {
-    const data = localStorage.getItem("escenas");
 
-    if (!data) return [];
+  const [escenas, setEscenas] =
+    useState<Escena[]>(() => {
 
-    const parsed = JSON.parse(data);
-    return parsed.map((e: any) => Escena.fromJSON(e));
-  });
+      const data =
+        localStorage.getItem("escenas");
 
-  const [mostrarFormulario, setMostrarFormulario] = useState(false);
+      if (!data) return [];
 
-  // 🔹 Guardar automáticamente
+      return JSON.parse(data).map(
+        (e: any) =>
+          Escena.fromJSON(e)
+      );
+    });
+
+  const [
+    mostrarFormulario,
+
+    setMostrarFormulario
+
+  ] = useState(false);
+
+  // GUARDAR
+
   useEffect(() => {
-    localStorage.setItem("escenas", JSON.stringify(escenas));
+
+    localStorage.setItem(
+      "escenas",
+      JSON.stringify(escenas)
+    );
+
   }, [escenas]);
 
-  // 🔹 Crear escena
-  const agregarEscena = (nombre: string) => {
-    const nueva = new Escena(nombre);
-    setEscenas([...escenas, nueva]);
+  // CREAR
+
+  const agregarEscena = (
+    nombre: string
+  ) => {
+
+    const nueva =
+      new Escena(nombre);
+
+    setEscenas([
+      ...escenas,
+      nueva
+    ]);
+
     setMostrarFormulario(false);
   };
 
+  // ELIMINAR
+
+  const eliminarEscena = (
+    index: number
+  ) => {
+
+    const copia = [...escenas];
+
+    copia.splice(index, 1);
+
+    setEscenas(copia);
+  };
+
+  // EDITAR
+
+  const editarEscena = (
+    index: number
+  ) => {
+
+    const nuevoNombre =
+      prompt("Nuevo nombre");
+
+    if (!nuevoNombre) return;
+
+    const copia = [...escenas];
+
+    copia[index].nombre =
+      nuevoNombre;
+
+    setEscenas([...copia]);
+  };
+
   return (
+
     <div className="layout">
 
       <Header titulo="ESCENAS" />
 
-      <div className="contenedor contenedor-escenas layout-escenas">
+      <div className="
+        contenedor
+        layout-escenas
+      ">
 
         {/* ESCENAS */}
-        {escenas.map((escena, index) => (
-          <Boton
+
+        {escenas.map(
+          (escena, index) => (
+
+          <CardEscena
+
             key={index}
+
             nombre={escena.nombre}
-            onClick={() => {}}
-            classNameExtra="boton-seguridad"
+
+            onEditar={() =>
+              editarEscena(index)
+            }
+
+            onEliminar={() =>
+              eliminarEscena(index)
+            }
+
           />
+
         ))}
 
-        {/* BOTÓN CREAR */}
+        {/* BOTÓN AÑADIR */}
+
         <Boton
-          nombre="+ Nueva escena"
-          onClick={() => setMostrarFormulario(true)}
-          classNameExtra="boton-seguridad"
+
+          nombre=""
+
+          icono={<IconoAnadir />}
+
+          onClick={() =>
+            setMostrarFormulario(true)
+          }
+
+          classNameExtra="
+            boton-seguridad
+            boton-anadir
+          "
         />
 
       </div>
 
       {/* FORMULARIO */}
+
       {mostrarFormulario && (
+
         <FormularioEscena
+
           onCrear={agregarEscena}
-          onCerrar={() => setMostrarFormulario(false)}
+
+          onCerrar={() =>
+            setMostrarFormulario(false)
+          }
+
         />
+
       )}
 
     </div>

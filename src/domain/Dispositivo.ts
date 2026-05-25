@@ -14,12 +14,10 @@ export class Dispositivo {
     this.activo = false;
   }
 
-  // 🔹 Encender / apagar
   toggle() {
     this.activo = !this.activo;
   }
 
-  // 🔹 Cambiar nombre
   cambiarNombre(
     nuevoNombre: string
   ) {

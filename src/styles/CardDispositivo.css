@@ -1,66 +1,30 @@
-.dispositivo-card {
+.contenido-dispositivo {
 
-  position: relative;
-
-  width: 350px;
-  height: 250px;
-
-  box-sizing: border-box;
-
-  border-radius: 20px;
-
-  border: 10px solid
-    var(--color-borde);
+  width: 100%;
+  height: 140px;
 
   display: flex;
 
   flex-direction: column;
 
-  justify-content: flex-start;
   align-items: center;
 
-  padding-top: 20px;
+  justify-content: flex-start;
 
-  transition: 0.2s;
+  margin-top: 0px;
 }
 
-/* NOMBRE */
+.base-card {
 
-.nombre-dispositivo {
-
-  position: absolute;
-
-  top: 15px;
-
-  color: var(--color-texto);
-
-  font-size: 28px;
-
-  text-align: center;
-
-  width: 100%;
-
-  margin: 0;
+  box-sizing: border-box;
 }
-
-/* ICONO */
 
 .icono-dispositivo {
-
-  position: absolute;
-
-  top: 50%;
-  left: 50%;
-
-  transform: translate(-50%, -50%);
 
   width: 150px;
   height: 150px;
 
-  display: flex;
-
-  justify-content: center;
-  align-items: center;
+  margin-top: -40px;
 }
 
 .icono-dispositivo svg {
@@ -71,21 +35,18 @@
   fill: var(--color-iconos);
 }
 
-/* SWITCH */
-
 .switch {
 
-  position: absolute;
-
-  bottom: 8px;
-  left: 50%;
-
-  transform: translateX(-50%);
+  position: relative;
 
   display: inline-block;
 
   width: 80px;
-  height: 34px;
+  height: 40px;
+
+  margin-top: -8px;
+
+  flex-shrink: 0;
 }
 
 .switch input {
@@ -107,9 +68,9 @@
   right: 0;
   bottom: 0;
 
-  background-color: var(--color-borde);
+  background-color: #ccc;
 
-  transition: .2s;
+  transition: .4s;
 
   border-radius: 34px;
 }
@@ -120,11 +81,11 @@
 
   content: "";
 
-  height: 26px;
-  width: 26px;
+  height: 30px;
+  width: 30px;
 
-  left: 4px;
-  bottom: 4px;
+  left: 5px;
+  bottom: 5px;
 
   background-color: white;
 
@@ -141,69 +102,5 @@ input:checked + .slider {
 
 input:checked + .slider:before {
 
-  transform: translateX(46px);
-}
-
-/* PANEL DERECHO */
-
-.panel-acciones {
-
-  position: absolute;
-
-  right: 15px;
-  top: 50%;
-
-  transform: translateY(-50%);
-
-  display: flex;
-
-  flex-direction: column;
-
-  align-items: center;
-
-  gap: 20px;
-}
-
-/* BOTONES */
-
-.accion-btn {
-
-  width: 60px;
-  height: 60px;
-
-  border: none;
-
-  background: transparent;
-
-  display: flex;
-
-  justify-content: center;
-  align-items: center;
-
-  cursor: pointer;
-
-  transition: 0.2s;
-}
-
-.accion-btn:hover {
-
-  transform: scale(1.08);
-}
-
-.accion-btn svg {
-
-  width: 100%;
-  height: 100%;
-
-  fill: var(--color-botones-oscuros);
-}
-
-/* ESTADOS */
-
-.activo,
-
-.desactivado {
-
-  background-color:
-    var(--color-botones);
+  transform: translateX(40px);
 }
