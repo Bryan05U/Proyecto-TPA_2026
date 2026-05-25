@@ -1,6 +1,14 @@
-import { DispositivoSeguridad }
-from "../domain/DispositivoSeguridad";
+import { DispositivoSeguridad } from "../domain/DispositivoSeguridad";
 
+import IconoCamara from "../assets/Seguridad/Logo_Camara.svg?react";
+
+import IconoVentana from "../assets/Seguridad/Logo_Camara.svg?react";
+
+import IconoPuerta from "../assets/Seguridad/Logo_Puerta.svg?react";
+
+import IconoTemperatura from "../assets/Seguridad/Logo_Temperatura.svg?react";
+
+import "../styles/Boton.css"
 import "../styles/CardDispositivo.css";
 
 type Props = {
@@ -38,13 +46,13 @@ function CardDispositivo({
       {/* ICONO */}
       <div className="icono-dispositivo">
 
-        {dispositivo.tipo === "camaras" && "📷"}
+        {dispositivo.tipo === "camaras" && <IconoCamara />}
 
-        {dispositivo.tipo === "ventanas" && "🪟"}
+        {dispositivo.tipo === "ventanas" && <IconoVentana />}
 
-        {dispositivo.tipo === "puertas" && "🚪"}
+        {dispositivo.tipo === "puertas" && <IconoPuerta />}
 
-        {dispositivo.tipo === "temperatura" && "🌡️"}
+        {dispositivo.tipo === "temperatura" && <IconoTemperatura />}
 
       </div>
 

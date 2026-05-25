@@ -37,7 +37,14 @@
 
 .icono-dispositivo {
 
-  font-size: 80px;
+  width: 150px;
+  height: 150px;
+
+  fill: var(--color-iconos);
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
 }
 
 /* COLORES */
