@@ -19,6 +19,7 @@ import { DispositivoFactory }
 from "../factory/DispositivoFactory";
 
 import "../styles/Layout.css";
+import IconoAnadir from "../assets/Botones/Logo_Añadir.svg?react"
 
 function SeguridadDispositivos() {
 
@@ -162,13 +163,12 @@ function SeguridadDispositivos() {
 
         {/* BOTÓN AGREGAR */}
         <Boton
-          nombre="+"
+          classNameExtra="boton-seguridad boton-anadir"
+          nombre=""
+          icono={<IconoAnadir />}
           onClick={() =>
             setMostrarFormulario(true)
           }
-          classNameExtra="
-            boton-seguridad
-          "
         />
 
       </div>
