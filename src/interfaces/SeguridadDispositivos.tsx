@@ -10,6 +10,7 @@ import {
 import Header from "../components/Header";
 import Boton from "../components/Boton";
 import CardDispositivo from "../components/CardDispositivo";
+import FormularioDispositivo from "../components/FormularioDispositivo";
 
 import { DispositivoSeguridad }
 from "../domain/DispositivoSeguridad";
@@ -18,12 +19,13 @@ import { DispositivoFactory }
 from "../factory/DispositivoFactory";
 
 import "../styles/Layout.css";
+import IconoAnadir from "../assets/Botones/Logo_Añadir.svg?react"
 
 function SeguridadDispositivos() {
 
   const { tipo } = useParams();
 
-  // 🔹 ESTADO
+  // 🔹 DISPOSITIVOS
   const [dispositivos, setDispositivos] =
     useState<DispositivoSeguridad[]>(() => {
 
@@ -40,6 +42,14 @@ function SeguridadDispositivos() {
       );
     });
 
+  // 🔹 MODAL
+  const [
+    mostrarFormulario,
+
+    setMostrarFormulario
+
+  ] = useState(false);
+
   // 🔹 GUARDAR
   useEffect(() => {
 
@@ -50,15 +60,10 @@ function SeguridadDispositivos() {
 
   }, [dispositivos, tipo]);
 
-  // 🔹 AGREGAR
-  const agregarDispositivo = () => {
-
-    const nombre =
-      prompt(
-        "Nombre del dispositivo"
-      );
-
-    if (!nombre) return;
+  // 🔹 CREAR
+  const agregarDispositivo = (
+    nombre: string
+  ) => {
 
     const nuevo =
       DispositivoFactory.crear(
@@ -70,6 +75,8 @@ function SeguridadDispositivos() {
       ...dispositivos,
       nuevo
     ]);
+
+    setMostrarFormulario(false);
   };
 
   // 🔹 TOGGLE
@@ -154,16 +161,32 @@ function SeguridadDispositivos() {
           />
         ))}
 
-        {/* AGREGAR */}
+        {/* BOTÓN AGREGAR */}
         <Boton
-          nombre="+"
-          onClick={agregarDispositivo}
-          classNameExtra="
-            boton-seguridad
-          "
+          classNameExtra="boton-seguridad boton-anadir"
+          nombre=""
+          icono={<IconoAnadir />}
+          onClick={() =>
+            setMostrarFormulario(true)
+          }
         />
 
       </div>
+
+      {/* FORMULARIO */}
+      {mostrarFormulario && (
+
+        <FormularioDispositivo
+
+          onCrear={agregarDispositivo}
+
+          onCerrar={() =>
+            setMostrarFormulario(false)
+          }
+
+        />
+
+      )}
 
     </div>
   );

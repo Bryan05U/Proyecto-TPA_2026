@@ -1,6 +1,16 @@
-import { DispositivoSeguridad }
-from "../domain/DispositivoSeguridad";
+import { DispositivoSeguridad } from "../domain/DispositivoSeguridad";
 
+// Importando iconos de botones
+import IconoCamara from "../assets/Seguridad/Logo_Camara.svg?react";
+import IconoVentana from "../assets/Seguridad/Logo_Ventana.svg?react";
+import IconoPuerta from "../assets/Seguridad/Logo_Puerta.svg?react";
+import IconoTemperatura from "../assets/Seguridad/Logo_Temperatura.svg?react";
+
+// Importando iconos de interacción
+import IconoEditar from "../assets/Botones/Logo_Editar.svg?react";
+import IconoBorrar from "../assets/Botones/Logo_Borrar.svg?react";
+
+import "../styles/Boton.css"
 import "../styles/CardDispositivo.css";
 
 type Props = {
@@ -28,47 +38,63 @@ function CardDispositivo({
 
   return (
 
-    <div className="card-dispositivo">
+    <div className={`
+      dispositivo-card
+      ${dispositivo.activo
+        ? "activo"
+        : "desactivado"}
+    `}>
 
-      {/* BOTÓN */}
-      <button
-        className={`
-          dispositivo-btn
-          ${dispositivo.activo
-            ? "activo"
-            : "desactivado"}
-        `}
-        onClick={onToggle}
-      >
+      {/* NOMBRE */}
+      <h2 className="nombre-dispositivo">
 
-        <h2>
-          {dispositivo.nombre}
-        </h2>
+        {dispositivo.nombre}
 
-      </button>
+      </h2>
 
-      {/* ACCIONES */}
-      <div className="acciones">
+      {/* ICONO */}
+      <div className="icono-dispositivo">
 
-        {/* SWITCH */}
-        <label className="switch">
+        {dispositivo.tipo === "camaras" &&
+          <IconoCamara />
+        }
 
-          <input
-            type="checkbox"
-            checked={dispositivo.activo}
-            onChange={onToggle}
-          />
+        {dispositivo.tipo === "ventanas" &&
+          <IconoVentana />
+        }
 
-          <span className="slider"></span>
+        {dispositivo.tipo === "puertas" &&
+          <IconoPuerta />
+        }
 
-        </label>
+        {dispositivo.tipo === "temperatura" &&
+          <IconoTemperatura />
+        }
+
+      </div>
+
+      {/* SWITCH */}
+      <label className="switch">
+
+        <input
+          type="checkbox"
+          checked={dispositivo.activo}
+          onChange={onToggle}
+        />
+
+        <span className="slider"></span>
+
+      </label>
+
+      {/* PANEL ACCIONES */}
+      <div className="panel-acciones">
 
         {/* EDITAR */}
         <button
           className="accion-btn"
           onClick={onEditar}
         >
-          Editar
+          <IconoEditar />
         </button>
 
         {/* ELIMINAR */}
@@ -76,7 +102,7 @@ function CardDispositivo({
           className="accion-btn"
           onClick={onEliminar}
         >
-          Eliminar
+          <IconoBorrar />
         </button>
 
       </div>
