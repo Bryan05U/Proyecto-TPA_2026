@@ -92,16 +92,23 @@ function SeguridadDispositivos() {
   };
 
   // 🔹 ELIMINAR
-  const eliminarDispositivo = (
-    index: number
-  ) => {
+const eliminarDispositivo = (
+  index: number
+) => {
 
-    const copia = [...dispositivos];
+  const confirmar =
+    confirm(
+      "¿Seguro que quieres eliminar este dispositivo?"
+    );
 
-    copia.splice(index, 1);
+  if (!confirmar) return;
 
-    setDispositivos(copia);
-  };
+  const copia = [...dispositivos];
+
+  copia.splice(index, 1);
+
+  setDispositivos(copia);
+};
 
   // 🔹 EDITAR
   const cambiarNombre = (
