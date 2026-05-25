@@ -2,7 +2,7 @@ import { DispositivoSeguridad } from "../domain/DispositivoSeguridad";
 
 // Importando iconos de botones
 import IconoCamara from "../assets/Seguridad/Logo_Camara.svg?react";
-import IconoVentana from "../assets/Seguridad/Logo_Camara.svg?react";
+import IconoVentana from "../assets/Seguridad/Logo_Ventana.svg?react";
 import IconoPuerta from "../assets/Seguridad/Logo_Puerta.svg?react";
 import IconoTemperatura from "../assets/Seguridad/Logo_Temperatura.svg?react";
 
