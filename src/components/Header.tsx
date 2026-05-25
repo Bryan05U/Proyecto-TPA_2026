@@ -2,11 +2,10 @@ import { useNavigate } from "react-router-dom";
 
 import "../styles/Header.css";
 
-// ICONO TEMPORAL
 import IconoVolver from
 "../assets/Botones/Logo_Volver.svg?react";
 
-type Props = {
+type HeaderProps = {
 
   titulo: string;
 
@@ -14,15 +13,18 @@ type Props = {
 };
 
 function Header({
+
   titulo,
+
   mostrarVolver = true
-}: Props) {
+
+}: HeaderProps) {
 
   const navigate = useNavigate();
 
   return (
 
-    <header className="header">
+    <div className="header">
 
       {/* BOTÓN VOLVER */}
 
@@ -43,7 +45,7 @@ function Header({
 
       <h1>{titulo}</h1>
 
-    </header>
+    </div>
   );
 }
 

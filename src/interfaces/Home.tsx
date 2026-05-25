@@ -15,7 +15,10 @@ function Home() {
   return (
     <div className="layout">
 
-      <Header titulo="DOMOSERV" />
+      <Header
+        titulo="DOMOSERV"
+        mostrarVolver={false}
+      />
       
       <div className="contenedor layout-home">
 
