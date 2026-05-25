@@ -28,35 +28,30 @@ function CardDispositivo({
 
   return (
 
-    <div className="card-dispositivo">
+    <div className={`
+      dispositivo-card
+      ${dispositivo.activo
+        ? "activo"
+        : "desactivado"}
+    `}>
 
-      {/* CARD */}
-      <div className={`
-        dispositivo-card
-        ${dispositivo.activo
-          ? "activo"
-          : "desactivado"}
-      `}>
+      {/* ICONO */}
+      <div className="icono-dispositivo">
 
-        {/* ICONO */}
-        <div className="icono-dispositivo">
+        {dispositivo.tipo === "camaras" && "📷"}
 
-          {dispositivo.tipo === "camaras" && "📷"}
+        {dispositivo.tipo === "ventanas" && "🪟"}
 
-          {dispositivo.tipo === "ventanas" && "🪟"}
+        {dispositivo.tipo === "puertas" && "🚪"}
 
-          {dispositivo.tipo === "puertas" && "🚪"}
-
-          {dispositivo.tipo === "temperatura" && "🌡️"}
-
-        </div>
-
-        {/* NOMBRE */}
-        <h2>
-          {dispositivo.nombre}
-        </h2>
+        {dispositivo.tipo === "temperatura" && "🌡️"}
 
       </div>
+
+      {/* NOMBRE */}
+      <h2>
+        {dispositivo.nombre}
+      </h2>
 
       {/* ACCIONES */}
       <div className="acciones">
@@ -79,7 +74,7 @@ function CardDispositivo({
           className="accion-btn"
           onClick={onEditar}
         >
-          Editar
+          ✏️
         </button>
 
         {/* ELIMINAR */}
@@ -87,7 +82,7 @@ function CardDispositivo({
           className="accion-btn"
           onClick={onEliminar}
         >
-          Eliminar
+          🗑️
         </button>
 
       </div>

@@ -9,7 +9,7 @@ import {
 
 import Header from "../components/Header";
 import Boton from "../components/Boton";
-import CardDispositivo from "../components/CardDIspositivo";
+import CardDispositivo from "../components/CardDispositivo";
 import FormularioDispositivo from "../components/FormularioDispositivo";
 
 import { DispositivoSeguridad }

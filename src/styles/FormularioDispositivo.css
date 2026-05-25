@@ -31,13 +31,11 @@
 
   min-height: 300px;
 
-  background-color:
-    var(--color-botones);
+  background-color: var(--color-botones);
 
   border-radius: 20px;
 
-  border: 5px solid
-    var(--color-borde);
+  border: 10px solid var(--color-borde);
 
   padding: 30px;
 
@@ -50,7 +48,7 @@
 
 .formulario-dispositivo h2 {
 
-  color: white;
+  color: var(--color-texto);
 
   font-size: 32px;
 }
@@ -61,8 +59,7 @@
 
   border-radius: 15px;
 
-  border: 3px solid
-    var(--color-borde);
+  border: 3px solid var(--color-borde);
 
   padding-left: 15px;
 
