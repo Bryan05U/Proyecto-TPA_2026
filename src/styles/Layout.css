@@ -2,7 +2,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
+
+  padding-bottom: 40px;
 }
 
 .contenedor {
@@ -10,6 +12,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.contenedor-anadir {
+
+  width: 100%;
+
+  display: flex;
+
+  justify-content: center;
+
+  margin-top: 10px;
 }
 
 .contenedor-escenas {
