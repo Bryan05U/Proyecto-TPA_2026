@@ -91,9 +91,43 @@ function Historial() {
 
     );
 
-    alert(
-      "Acción revertida"
+    const historial =
+      JSON.parse(
+
+        localStorage.getItem(
+          "historial"
+        ) || "[]"
+
+      );
+
+    historial.push({
+
+      dispositivoNombre:
+        dispositivo.nombre,
+
+      dispositivoTipo:
+        dispositivo.tipo,
+
+      accion:
+        "revertido",
+
+      fecha:
+        new Date()
+          .toLocaleString()
+
+    });
+
+    localStorage.setItem(
+
+      "historial",
+
+      JSON.stringify(
+        historial
+      )
+
     );
+
+    cargarEventos();
   };
 
   return (
@@ -125,51 +159,83 @@ function Historial() {
 
             <span>
 
-              El dispositivo
+              {evento.accion ===
+                "revertido"
 
-              {" "}
+                ? (
 
-              <strong>
-                {
-                  evento.dispositivoNombre
-                }
-              </strong>
+                  <>
+                    Se revirtió el estado del dispositivo
 
-              {" "}
+                    {" "}
 
-              fue
+                    <strong>
+                      {
+                        evento.dispositivoNombre
+                      }
+                    </strong>
 
-              {" "}
+                    {" a las "}
 
-              {
-                evento.accion
-              }
+                    {
+                      evento.fecha
+                    }
+                  </>
 
-              {" a las "}
+                )
 
-              {
-                evento.fecha
-              }
+                : (
+
+                  <>
+                    El dispositivo
+
+                    {" "}
+
+                    <strong>
+                      {
+                        evento.dispositivoNombre
+                      }
+                    </strong>
+
+                    {" fue "}
+
+                    {
+                      evento.accion
+                    }
+
+                    {" a las "}
+
+                    {
+                      evento.fecha
+                    }
+                  </>
+
+                )}
 
             </span>
 
-            <button
+            {evento.accion !==
+              "revertido" && (
 
-              className="
-                btn-revertir
-              "
+              <button
 
-              onClick={() =>
-                revertir(
-                  evento
-                )
-              }
+                className="
+                  btn-revertir
+                "
 
-            >
+                onClick={() =>
+                  revertir(
+                    evento
+                  )
+                }
 
-              <IconoRevertir />
+              >
 
-            </button>
+                <IconoRevertir />
+
+              </button>
+
+            )}
 
           </div>
         ))}
