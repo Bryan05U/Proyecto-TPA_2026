@@ -1,16 +1,9 @@
-import {
-  useEffect,
-  useState
-} from "react";
+import { useEffect, useState } from "react";
 
 import Header from "../components/Header";
 import Boton from "../components/Boton";
-
-import CardDispositivo from
-"../components/CardDispositivo";
-
-import FormularioDispositivo from
-"../components/FormularioDispositivo";
+import CardDispositivo from "../components/CardDispositivo";
+import FormularioDispositivo from "../components/FormularioDispositivo";
 
 import { DispositivoComun }
 from "../domain/DispositivoComun";
@@ -18,8 +11,8 @@ from "../domain/DispositivoComun";
 import { DispositivoFactory }
 from "../factory/DispositivoFactory";
 
-import IconoAnadir from
-"../assets/Botones/Logo_Añadir.svg?react";
+import IconoAnadir
+from "../assets/Botones/Logo_Añadir.svg?react";
 
 import "../styles/Dispositivos.css";
 
@@ -35,16 +28,12 @@ function Dispositivos() {
 
   const [
     categoriaSeleccionada,
-
     setCategoriaSeleccionada
-
   ] = useState("tv");
 
   const [
     dispositivos,
-
     setDispositivos
-
   ] = useState<DispositivoComun[]>(() => {
 
     const data =
@@ -62,9 +51,7 @@ function Dispositivos() {
 
   const [
     mostrarFormulario,
-
     setMostrarFormulario
-
   ] = useState(false);
 
   useEffect(() => {
@@ -98,27 +85,24 @@ function Dispositivos() {
     index: number
   ) => {
 
-    const copia =
-      [...dispositivos];
+    const copia = [...dispositivos];
 
     copia[index].toggle();
 
-    setDispositivos(copia);
+    setDispositivos([...copia]);
   };
 
   const eliminarDispositivo = (
     index: number
   ) => {
 
-    const confirmar =
-      confirm(
-        "¿Eliminar dispositivo?"
-      );
+    const confirmar = confirm(
+      "¿Eliminar dispositivo?"
+    );
 
     if (!confirmar) return;
 
-    const copia =
-      [...dispositivos];
+    const copia = [...dispositivos];
 
     copia.splice(index, 1);
 
@@ -130,20 +114,17 @@ function Dispositivos() {
   ) => {
 
     const nuevoNombre =
-      prompt(
-        "Nuevo nombre"
-      );
+      prompt("Nuevo nombre");
 
     if (!nuevoNombre) return;
 
-    const copia =
-      [...dispositivos];
+    const copia = [...dispositivos];
 
     copia[index].cambiarNombre(
       nuevoNombre
     );
 
-    setDispositivos(copia);
+    setDispositivos([...copia]);
   };
 
   const dispositivosFiltrados =
@@ -165,7 +146,7 @@ function Dispositivos() {
 
         {/* SIDEBAR */}
 
-        <div className="sidebar">
+        <aside className="sidebar">
 
           {categorias.map(
             categoria => (
@@ -196,11 +177,11 @@ function Dispositivos() {
             </button>
           ))}
 
-        </div>
+        </aside>
 
         {/* CONTENIDO */}
 
-        <div className="contenido-dispositivos">
+        <main className="contenido-dispositivos">
 
           {dispositivosFiltrados.map(
             (
@@ -212,9 +193,7 @@ function Dispositivos() {
 
               key={index}
 
-              dispositivo={
-                dispositivo
-              }
+              dispositivo={dispositivo}
 
               onToggle={() =>
                 toggleDispositivo(
@@ -263,7 +242,7 @@ function Dispositivos() {
             "
           />
 
-        </div>
+        </main>
 
       </div>
 
