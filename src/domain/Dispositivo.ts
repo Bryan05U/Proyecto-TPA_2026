@@ -1,7 +1,9 @@
 export class Dispositivo {
 
   nombre: string;
+
   tipo: string;
+
   activo: boolean;
 
   constructor(
@@ -14,15 +16,16 @@ export class Dispositivo {
     this.activo = false;
   }
 
-  toggle() {
-    this.activo = !this.activo;
+  toggle(): void {
+
+    this.activo =
+      !this.activo;
   }
 
   cambiarNombre(
-    nuevoNombre: string
-  ) {
+    nombre: string
+  ): void {
 
-    this.nombre = nuevoNombre;
+    this.nombre = nombre;
   }
-
 }
