@@ -1,18 +1,10 @@
-import {
-  useEffect,
-  useState
-} from "react";
+import { useEffect, useState } from "react";
 
-import Header
-from "../components/Header";
+import Header from "../components/Header";
 
-import {
-  HistorialEvento
-}
-from "../domain/HistorialEvento";
+import { HistorialEvento } from "../domain/HistorialEvento";
 
-import IconoRevertir
-from "../assets/Botones/Logo_Revertir.svg?react";
+import IconoRevertir from "../assets/Botones/Logo_Revertir.svg?react";
 
 import "../styles/Historial.css";
 
