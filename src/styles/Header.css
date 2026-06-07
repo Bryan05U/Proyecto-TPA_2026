@@ -24,7 +24,7 @@
 
   font-size: 48px;
 
-  color: white;
+  color: var(--color-texto);
 }
 
 /* BOTÓN VOLVER */
