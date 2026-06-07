@@ -1,12 +1,23 @@
-import { Command } from "./Command";
 import { Dispositivo } from "../Dispositivo";
+import type { Command } from "./Command";
 
 export class ToggleDispositivoCommand
 implements Command {
 
+  private dispositivo: Dispositivo;
+
+  private estadoAnterior: boolean;
+
   constructor(
-    private dispositivo: Dispositivo
-  ) {}
+    dispositivo: Dispositivo
+  ) {
+
+    this.dispositivo =
+      dispositivo;
+
+    this.estadoAnterior =
+      dispositivo.activo;
+  }
 
   execute(): void {
 
@@ -15,6 +26,7 @@ implements Command {
 
   undo(): void {
 
-    this.dispositivo.toggle();
+    this.dispositivo.activo =
+      this.estadoAnterior;
   }
 }

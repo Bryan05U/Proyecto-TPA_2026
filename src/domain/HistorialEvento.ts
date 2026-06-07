@@ -1,16 +1,37 @@
 export class HistorialEvento {
 
+  dispositivoNombre: string;
+
+  dispositivoTipo: string;
+
+  accion: string;
+
+  fecha: string;
+
   constructor(
 
-    public dispositivoNombre: string,
+    dispositivoNombre: string,
 
-    public dispositivoTipo: string,
+    dispositivoTipo: string,
 
-    public accion: string,
+    accion: string,
 
-    public fecha: string
+    fecha: string
 
-  ) {}
+  ) {
+
+    this.dispositivoNombre =
+      dispositivoNombre;
+
+    this.dispositivoTipo =
+      dispositivoTipo;
+
+    this.accion =
+      accion;
+
+    this.fecha =
+      fecha;
+  }
 
   static fromJSON(
     obj: any
