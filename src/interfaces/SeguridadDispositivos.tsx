@@ -3,6 +3,8 @@ import {
   useState
 } from "react";
 
+import { ToggleDispositivoCommand } from "../domain/commands/ToggleDispositivoCommand";
+
 import {
   useParams
 } from "react-router-dom";
@@ -84,11 +86,60 @@ function SeguridadDispositivos() {
     index: number
   ) => {
 
-    const copia = [...dispositivos];
+    const copia =
+      [...dispositivos];
 
-    copia[index].toggle();
+    const dispositivo =
+      copia[index];
 
-    setDispositivos([...copia]);
+    const comando =
+      new ToggleDispositivoCommand(
+        dispositivo
+      );
+
+    comando.execute();
+
+    const historial =
+      JSON.parse(
+
+        localStorage.getItem(
+          "historial"
+        ) || "[]"
+
+      );
+
+    historial.push({
+
+      dispositivoNombre:
+        dispositivo.nombre,
+
+      dispositivoTipo:
+        dispositivo.tipo,
+
+      accion:
+        dispositivo.activo
+          ? "activado"
+          : "desactivado",
+
+      fecha:
+        new Date()
+          .toLocaleString()
+
+    });
+
+    localStorage.setItem(
+
+      "historial",
+
+      JSON.stringify(
+        historial
+      )
+
+    );
+
+    setDispositivos([
+      ...copia
+    ]);
   };
 
   // 🔹 ELIMINAR

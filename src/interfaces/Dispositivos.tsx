@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 
+import { ToggleDispositivoCommand } from "../domain/commands/ToggleDispositivoCommand";
+
 import Header from "../components/Header";
 import Boton from "../components/Boton";
 import CardDispositivo from "../components/CardDispositivo";
@@ -85,11 +87,60 @@ function Dispositivos() {
     index: number
   ) => {
 
-    const copia = [...dispositivos];
+    const copia =
+      [...dispositivos];
 
-    copia[index].toggle();
+    const dispositivo =
+      copia[index];
 
-    setDispositivos([...copia]);
+    const comando =
+      new ToggleDispositivoCommand(
+        dispositivo
+      );
+
+    comando.execute();
+
+    const historial =
+      JSON.parse(
+
+        localStorage.getItem(
+          "historial"
+        ) || "[]"
+
+      );
+
+    historial.push({
+
+      dispositivoNombre:
+        dispositivo.nombre,
+
+      dispositivoTipo:
+        dispositivo.tipo,
+
+      accion:
+        dispositivo.activo
+          ? "activado"
+          : "desactivado",
+
+      fecha:
+        new Date()
+          .toLocaleString()
+
+    });
+
+    localStorage.setItem(
+
+      "historial",
+
+      JSON.stringify(
+        historial
+      )
+
+    );
+
+    setDispositivos([
+      ...copia
+    ]);
   };
 
   const eliminarDispositivo = (
