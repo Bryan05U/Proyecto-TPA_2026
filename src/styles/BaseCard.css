@@ -26,7 +26,7 @@
 
 .base-card h2 {
 
-  color: white;
+  color: var(--color-texto);
 
   font-size: 28px;
 
