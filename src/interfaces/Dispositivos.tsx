@@ -1,5 +1,15 @@
+import Boton from "../components/Boton"
+import Header from "../components/Header"
+import "../styles/Layout.css";
+
 function Dispositivos() {
-  return <h1>Pantalla de Dispositivos</h1>;
+  return (
+    <div className="layout">
+      <Header titulo="DISPOSITIVOS">
+
+      </Header>
+    </div>
+  )
 }
 
-export default Dispositivos;
+export default Dispositivos
