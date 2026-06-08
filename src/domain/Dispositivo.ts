@@ -1,9 +1,7 @@
 export class Dispositivo {
 
   nombre: string;
-
   tipo: string;
-
   activo: boolean;
 
   constructor(
