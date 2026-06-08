@@ -1,0 +1,44 @@
+
+.domo-login-container {     /* Centrado y cuadrado azul del inicio */
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center;     /* Centra verticalmente */
+  min-height: 100vh;       
+  background-color: #ffffff; /* Fondo blanco */
+}
+
+.domo-blue-card {
+  background-color: #1a3a5f; /* Color Azul */
+  padding: 1.8rem;
+  border-radius: 8px;        /* Esquinas redondeadas */
+  display: flex;
+  flex-direction: column;    
+  gap: 1.2rem;              
+}
+
+
+.domo-input-field {     /*Inputs*/
+  display: flex;
+  align-items: center;
+  background-color: #89c4f4; /*Color celeste*/
+  border-radius: 6px;
+  padding: 0.6rem 1rem;
+}
+
+.domo-input-field input {
+  background: none; 
+  border: none;     
+  outline: none;    /* Evita que dibuje una línea rara al hacerle clic */
+  width: 100%;
+  color: #1a3a5f;  
+}
+
+.domo-alert-message.shake-effect {
+  animation: shakeDomo 0.4s ease-in-out;
+}
+
+@keyframes shakeDomo {
+  0%, 100% { transform: translateX(0); }       
+  25%      { transform: translateX(-8px); }    
+  75%      { transform: translateX(8px); }     
+}
