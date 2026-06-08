@@ -32,3 +32,13 @@
   width: 100%;
   color: #1a3a5f;  
 }
+
+.domo-alert-message.shake-effect {
+  animation: shakeDomo 0.4s ease-in-out;
+}
+
+@keyframes shakeDomo {
+  0%, 100% { transform: translateX(0); }       
+  25%      { transform: translateX(-8px); }    
+  75%      { transform: translateX(8px); }     
+}
