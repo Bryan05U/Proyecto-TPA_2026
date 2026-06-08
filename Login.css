@@ -15,3 +15,20 @@
   flex-direction: column;    
   gap: 1.2rem;              
 }
+
+
+.domo-input-field {     /*Inputs*/
+  display: flex;
+  align-items: center;
+  background-color: #89c4f4; /*Color celeste*/
+  border-radius: 6px;
+  padding: 0.6rem 1rem;
+}
+
+.domo-input-field input {
+  background: none; 
+  border: none;     
+  outline: none;    /* Evita que dibuje una línea rara al hacerle clic */
+  width: 100%;
+  color: #1a3a5f;  
+}
