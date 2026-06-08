@@ -1,10 +1,12 @@
 :root {
+    --color-fondo-login: #FFFFFF;
     --color-fondo-claro: #9CD5FF;
     --color-fondo-oscuro: #084283;
     --color-text: #9CD5FF;
     --color-botones: #084283;
     --color-botones-oscuros:#0C2B4E;
     --color-borde: #0C2B4E;
+    --color-relleno: #0C2B4E;
     --color-borde-oscuro: black;
     --color-iconos: #9CD5FF;
 }
