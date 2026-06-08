@@ -4,11 +4,11 @@
   justify-content: center; /* Centra horizontalmente */
   align-items: center;     /* Centra verticalmente */
   min-height: 100vh;       
-  background-color: #ffffff; /* Fondo blanco */
+  background-color: var(--color-fondo-login); /* Fondo blanco */
 }
 
 .domo-blue-card {
-  background-color: #1a3a5f; /* Color Azul */
+  background-color: var(--color-relleno); /* Color Azul */
   padding: 1.8rem;
   border-radius: 8px;        /* Esquinas redondeadas */
   display: flex;
@@ -20,7 +20,7 @@
 .domo-input-field {     /*Inputs*/
   display: flex;
   align-items: center;
-  background-color: #89c4f4; /*Color celeste*/
+  background-color: var(--color-fondo-claro); /*Color celeste*/
   border-radius: 6px;
   padding: 0.6rem 1rem;
 }
@@ -30,7 +30,7 @@
   border: none;     
   outline: none;    /* Evita que dibuje una línea rara al hacerle clic */
   width: 100%;
-  color: #1a3a5f;  
+  color: var(--color-relleno);  
 }
 
 .domo-alert-message.shake-effect {

@@ -1,5 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 
+import Login from "./interfaces/Login";
+
 import Home
 from "./interfaces/Home";
 
@@ -26,6 +28,11 @@ function App() {
 
       <Route
         path="/"
+        element={<Login />}
+      />
+
+      <Route
+        path="/home"
         element={<Home />}
       />
 
