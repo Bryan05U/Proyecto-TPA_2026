@@ -42,5 +42,32 @@ const handleSubmit = (e: React.FormEvent) => {
   }, 5000);
 };
 
+if (isLoading) {
+  return (
+    <div className="domo-login-container">
+      <div className="loader-box">
+        <div className="spinner"></div> {/* El círculo giratorio en CSS */}
+        <p className="loading-text">Conectando con DomoServ...</p>
+      </div>
+    </div>
+  );
+}
 
-
+<div className="domo-blue-card">
+  <div className="domo-input-field">
+    <HiOutlineMail className="domo-icon" /> {/* Dibuja el sobre */}
+    <input 
+      type="email" 
+      value={email} // Conecta el input con nuestra variable del estado
+      onChange={(e) => setEmail(e.target.value)} // Cada vez que el usuario teclea, guarda el texto en la variable
+      placeholder="Ingrese su correo electrónico"
+      required
+    />
+  </div>
+  {/* Renderizado lógico: SI errorEmail es true, muestra el div del error. Si es false, no dibuja nada */}
+  {errorEmail && (
+    <div className="domo-alert-message shake-effect">
+      Correo inválido o no registrado
+    </div>
+  )}
+</div>
