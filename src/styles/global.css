@@ -14,3 +14,9 @@ body {
   background-color: var(--color-fondo-claro);
   color: var(--color-text);
 }
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}

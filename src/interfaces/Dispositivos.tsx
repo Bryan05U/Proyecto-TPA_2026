@@ -23,9 +23,8 @@ function Dispositivos() {
   const categorias = [
     "tv",
     "luces",
-    "bocinas",
     "ventiladores",
-    "enchufes"
+    "aspiradora"
   ];
 
   const [

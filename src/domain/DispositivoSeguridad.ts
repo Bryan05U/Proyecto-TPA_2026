@@ -1,7 +1,6 @@
 import { Dispositivo } from "./Dispositivo";
 
-export class DispositivoSeguridad
-extends Dispositivo {
+export class DispositivoSeguridad extends Dispositivo {
 
   constructor(
     nombre: string,
