@@ -1,0 +1,17 @@
+
+.domo-login-container {     /* Centrado y cuadrado azul del inicio */
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center;     /* Centra verticalmente */
+  min-height: 100vh;       
+  background-color: #ffffff; /* Fondo blanco */
+}
+
+.domo-blue-card {
+  background-color: #1a3a5f; /* Color Azul */
+  padding: 1.8rem;
+  border-radius: 8px;        /* Esquinas redondeadas */
+  display: flex;
+  flex-direction: column;    
+  gap: 1.2rem;              
+}
