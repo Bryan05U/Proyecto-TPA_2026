@@ -1,77 +1,48 @@
-import {
-  useEffect,
-  useState
-} from "react";
-
-import { ToggleDispositivoCommand } from "../domain/commands/ToggleDispositivoCommand";
-
-import {
-  useParams
-} from "react-router-dom";
-
+import { useEffect,useState } from "react";
+import { useParams } from "react-router-dom";
 import Header from "../components/Header";
 import Boton from "../components/Boton";
 import CardDispositivo from "../components/CardDispositivo";
 import FormularioDispositivo from "../components/FormularioDispositivo";
-
-import { DispositivoSeguridad }
-from "../domain/DispositivoSeguridad";
-
-import { DispositivoFactory }
-from "../factory/DispositivoFactory";
-
+import { DispositivoSeguridad } from "../domain/DispositivoSeguridad";
+import { DispositivoFactory } from "../factory/DispositivoFactory";
+import { ToggleDispositivoCommand } from "../domain/commands/ToggleDispositivoCommand";
+import { DispositivosService } from "../services/DispositivosService";
+import IconoAnadir from "../assets/Botones/Logo_Añadir.svg?react";
 import "../styles/Layout.css";
-import IconoAnadir from "../assets/Botones/Logo_Añadir.svg?react"
 
-function SeguridadDispositivos() {
+function SeguridadDispositivos(){
 
   const { tipo } = useParams();
 
-  // 🔹 DISPOSITIVOS
-  const [dispositivos, setDispositivos] =
-    useState<DispositivoSeguridad[]>(() => {
+  const [dispositivos,setDispositivos]=useState<DispositivoSeguridad[]>(()=>{
 
-      const data =
-        localStorage.getItem(
-          tipo || ""
-        );
+    return DispositivosService.obtener(
+      tipo||""
+    ) as DispositivoSeguridad[];
 
-      if (!data) return [];
+  });
 
-      return JSON.parse(data).map(
-        (d: any) =>
-          DispositivoSeguridad.fromJSON(d)
-      );
-    });
+  const [mostrarFormulario,setMostrarFormulario]=useState(false);
 
-  // 🔹 MODAL
-  const [
-    mostrarFormulario,
+  useEffect(()=>{
 
-    setMostrarFormulario
+    DispositivosService.guardar(
 
-  ] = useState(false);
+      tipo||"",
 
-  // 🔹 GUARDAR
-  useEffect(() => {
+      dispositivos
 
-    localStorage.setItem(
-      tipo || "",
-      JSON.stringify(dispositivos)
     );
 
-  }, [dispositivos, tipo]);
+  },[dispositivos,tipo]);
 
-  // 🔹 CREAR
-  const agregarDispositivo = (
-    nombre: string
-  ) => {
+  const agregarDispositivo=(nombre:string)=>{
 
-    const nuevo =
-      DispositivoFactory.crear(
-        nombre,
-        tipo || ""
-      );
+    const nuevo=DispositivoFactory.crear(
+      nombre,
+      tipo||""
+    );
 
     setDispositivos([
       ...dispositivos,
@@ -79,175 +50,177 @@ function SeguridadDispositivos() {
     ]);
 
     setMostrarFormulario(false);
+
   };
 
-  // 🔹 TOGGLE
-  const toggleDispositivo = (
-    index: number
-  ) => {
+  const actualizarEscenas=(dispositivo:DispositivoSeguridad)=>{
 
-    const copia =
-      [...dispositivos];
+    const data=localStorage.getItem("escenas");
 
-    const dispositivo =
-      copia[index];
+    if(!data)return;
 
-    const comando =
-      new ToggleDispositivoCommand(
-        dispositivo
-      );
+    const escenas=JSON.parse(data);
 
-    comando.execute();
+    escenas.forEach((escena:any)=>{
 
-    const historial =
-      JSON.parse(
+      escena.dispositivos.forEach((d:any)=>{
 
-        localStorage.getItem(
-          "historial"
-        ) || "[]"
+        if(
+          d.nombre===dispositivo.nombre &&
+          d.tipo===dispositivo.tipo
+        ){
+          d.activo=dispositivo.activo;
+        }
 
-      );
-
-    historial.push({
-
-      dispositivoNombre:
-        dispositivo.nombre,
-
-      dispositivoTipo:
-        dispositivo.tipo,
-
-      accion:
-        dispositivo.activo
-          ? "activado"
-          : "desactivado",
-
-      fecha:
-        new Date()
-          .toLocaleString()
+      });
 
     });
 
     localStorage.setItem(
-
-      "historial",
-
-      JSON.stringify(
-        historial
-      )
-
+      "escenas",
+      JSON.stringify(escenas)
     );
 
-    setDispositivos([
-      ...copia
-    ]);
   };
 
-  // 🔹 ELIMINAR
-const eliminarDispositivo = (
-  index: number
-) => {
+  const toggleDispositivo=(index:number)=>{
 
-  const confirmar =
-    confirm(
-      "¿Seguro que quieres eliminar este dispositivo?"
+    const copia=[...dispositivos];
+
+    const dispositivo=copia[index];
+
+    const comando=new ToggleDispositivoCommand(dispositivo);
+
+    comando.execute();
+
+    actualizarEscenas(dispositivo);
+
+    const historial=JSON.parse(
+      localStorage.getItem("historial")||"[]"
     );
 
-  if (!confirmar) return;
+    historial.push({
+      dispositivoNombre:dispositivo.nombre,
+      dispositivoTipo:dispositivo.tipo,
+      accion:dispositivo.activo?"activado":"desactivado",
+      fecha:new Date().toLocaleString()
+    });
 
-  const copia = [...dispositivos];
-
-  copia.splice(index, 1);
-
-  setDispositivos(copia);
-};
-
-  // 🔹 EDITAR
-  const cambiarNombre = (
-    index: number
-  ) => {
-
-    const nuevoNombre =
-      prompt("Nuevo nombre");
-
-    if (!nuevoNombre) return;
-
-    const copia = [...dispositivos];
-
-    copia[index].cambiarNombre(
-      nuevoNombre
+    localStorage.setItem(
+      "historial",
+      JSON.stringify(historial)
     );
 
     setDispositivos([...copia]);
+
   };
 
-  return (
+  const eliminarDispositivo=(index:number)=>{
+
+    if(!confirm("¿Seguro que quieres eliminar este dispositivo?"))return;
+
+    const copia=[...dispositivos];
+
+    copia.splice(index,1);
+
+    setDispositivos(copia);
+
+  };
+
+  const cambiarNombre=(index:number)=>{
+
+    const nuevoNombre=prompt("Nuevo nombre");
+
+    if(!nuevoNombre)return;
+
+    const copia=[...dispositivos];
+
+    copia[index].cambiarNombre(nuevoNombre);
+
+    setDispositivos([...copia]);
+
+  };
+
+  return(
 
     <div className="layout">
 
       <Header
-        titulo={
-          tipo?.toUpperCase() || ""
-        }
+        titulo={tipo?.toUpperCase()||""}
       />
 
-      <div className="
-        contenedor
-        layout-escenas
-      ">
+      <div className="contenedor layout-escenas">
 
-        {/* DISPOSITIVOS */}
-        {dispositivos.map(
-          (dispositivo, index) => (
+        {
 
-          <CardDispositivo
+          dispositivos.map(
 
-            key={index}
+            (dispositivo,index)=>(
 
-            dispositivo={dispositivo}
+              <CardDispositivo
 
-            onToggle={() =>
-              toggleDispositivo(index)
-            }
+                key={index}
 
-            onEditar={() =>
-              cambiarNombre(index)
-            }
+                dispositivo={dispositivo}
 
-            onEliminar={() =>
-              eliminarDispositivo(index)
-            }
-          />
-        ))}
+                onToggle={()=>
+                  toggleDispositivo(index)
+                }
 
-        {/* BOTÓN AGREGAR */}
+                onEditar={()=>
+                  cambiarNombre(index)
+                }
+
+                onEliminar={()=>
+                  eliminarDispositivo(index)
+                }
+
+              />
+
+            )
+
+          )
+
+        }
+
         <Boton
+
           classNameExtra="boton-seguridad boton-anadir"
+
           nombre=""
-          icono={<IconoAnadir />}
-          onClick={() =>
+
+          icono={<IconoAnadir/>}
+
+          onClick={()=>
             setMostrarFormulario(true)
           }
+
         />
 
       </div>
 
-      {/* FORMULARIO */}
-      {mostrarFormulario && (
+      {
 
-        <FormularioDispositivo
+        mostrarFormulario&&(
 
-          onCrear={agregarDispositivo}
+          <FormularioDispositivo
 
-          onCerrar={() =>
-            setMostrarFormulario(false)
-          }
+            onCrear={agregarDispositivo}
 
-        />
+            onCerrar={()=>
+              setMostrarFormulario(false)
+            }
 
-      )}
+          />
+
+        )
+
+      }
 
     </div>
+
   );
+
 }
 
 export default SeguridadDispositivos;

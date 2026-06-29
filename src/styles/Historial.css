@@ -60,3 +60,75 @@
 
   fill: var(--color-iconos);
 }
+
+.btn-borrar-historial{
+
+  width:48px;
+
+  height:48px;
+
+  border:none;
+
+  outline:none;
+
+  box-shadow:none;
+
+  border-radius:50%;
+
+  background:var(--color-botones);
+
+  display:flex;
+
+  justify-content:center;
+
+  align-items:center;
+
+  cursor:pointer;
+
+  transition:.2s;
+
+}
+
+.btn-borrar-historial:hover{
+
+  transform:scale(1.08);
+
+}
+
+.btn-borrar-historial:focus,
+
+.btn-borrar-historial:focus-visible{
+
+  outline:none;
+
+  box-shadow:none;
+
+}
+
+.btn-borrar-historial svg{
+
+  width:40px;
+
+  height:40px;
+
+  fill: var(--color-iconos);
+
+}
+
+.historial-acciones{
+
+  width:100%;
+
+  display:flex;
+
+  justify-content:flex-start;
+
+  align-items:center;
+
+  padding:0 20px;
+
+  box-sizing:border-box;
+
+  margin:15px 0;
+
+}
