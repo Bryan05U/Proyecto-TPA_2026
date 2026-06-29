@@ -1,36 +1,58 @@
-
-.domo-login-container {     /* Centrado y cuadrado azul del inicio */
+.domo-login-container {
   display: flex;
-  justify-content: center; /* Centra horizontalmente */
-  align-items: center;     /* Centra verticalmente */
-  min-height: 100vh;       
-  background-color: var(--color-fondo-login); /* Fondo blanco */
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: var(--color-fondo-login);
 }
 
 .domo-blue-card {
-  background-color: var(--color-relleno); /* Color Azul */
+  background-color: var(--color-relleno);
   padding: 1.8rem;
-  border-radius: 8px;        /* Esquinas redondeadas */
+  border-radius: 8px;
   display: flex;
-  flex-direction: column;    
-  gap: 1.2rem;              
+  flex-direction: column;
+  gap: 1.2rem;
 }
 
+/* INPUTS */
 
-.domo-input-field {     /*Inputs*/
+.domo-input-field {
   display: flex;
   align-items: center;
-  background-color: var(--color-fondo-claro); /*Color celeste*/
+  gap: 10px;
+
+  background-color: var(--color-fondo-claro);
   border-radius: 6px;
   padding: 0.6rem 1rem;
 }
 
 .domo-input-field input {
-  background: none; 
-  border: none;     
-  outline: none;    /* Evita que dibuje una línea rara al hacerle clic */
+  background: none;
+  border: none;
+  outline: none;
   width: 100%;
-  color: var(--color-relleno);  
+
+  color: var(--color-relleno);
+}
+
+/* ICONOS */
+
+.domo-icon {
+  width: 20px;
+  height: 20px;
+
+  min-width: 20px;
+  min-height: 20px;
+
+  flex-shrink: 0;
+}
+
+/* MENSAJES DE ERROR */
+
+.domo-alert-message {
+  color: red;
+  font-size: 14px;
 }
 
 .domo-alert-message.shake-effect {
@@ -38,7 +60,74 @@
 }
 
 @keyframes shakeDomo {
-  0%, 100% { transform: translateX(0); }       
-  25%      { transform: translateX(-8px); }    
-  75%      { transform: translateX(8px); }     
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-8px); }
+  75% { transform: translateX(8px); }
+}
+
+.domo-btn-confirmar {
+  width: 160px;
+  height: 50px;
+
+  margin-top: 15px;
+
+  border-radius: 14px;
+  border: 6px solid var(--color-borde);
+
+  background-color: var(--color-botones);
+
+  color: black;
+
+  font-size: 20px;
+  font-weight: bold;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.domo-btn-confirmar:hover {
+  transform: scale(1.03);
+}
+
+.domo-btn-confirmar:active {
+  transform: scale(0.98);
+}
+
+/* TÍTULO PRINCIPAL */
+
+.domo-logo-title {
+  color: var(--color-relleno);
+}
+
+/* SUBTÍTULO */
+
+.domo-subtitle {
+  color: black;
+}
+
+/* TEXTO DEL REGISTRO */
+
+.domo-register-footer {
+  color: black;
+}
+
+.domo-register-footer a {
+  color: black;
+}
+
+/* INPUTS */
+
+.domo-input-field input {
+  color: black;
+}
+
+.domo-input-field input::placeholder {
+  color: black;
+}
+
+/* BOTÓN */
+
+.domo-btn-confirmar {
+  color: black;
 }
