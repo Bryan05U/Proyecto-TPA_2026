@@ -1,249 +1,217 @@
-import { useEffect, useState } from "react";
+import { useEffect,useState } from "react";
 
 import Header from "../components/Header";
 
 import { HistorialEvento } from "../domain/HistorialEvento";
 
+import { HistorialService } from "../services/HistorialService";
+import { DispositivosService } from "../services/DispositivosService";
+
+import IconoBorrar from "../assets/Botones/Logo_Borrar.svg?react";
 import IconoRevertir from "../assets/Botones/Logo_Revertir.svg?react";
 
 import "../styles/Historial.css";
 
-function Historial() {
+function Historial(){
 
-  const [
+  const[eventos,setEventos]=useState<HistorialEvento[]>([]);
 
-    eventos,
-
-    setEventos
-
-  ] = useState<
-    HistorialEvento[]
-  >([]);
-
-  useEffect(() => {
+  useEffect(()=>{
 
     cargarEventos();
 
-  }, []);
+  },[]);
 
-  const cargarEventos =
-    () => {
+  const cargarEventos=()=>{
 
-      const data =
-        localStorage.getItem(
-          "historial"
-        );
+    setEventos(
 
-      if (!data) return;
-
-      setEventos(
-
-        JSON.parse(data).map(
-          (e: any) =>
-
-            HistorialEvento
-              .fromJSON(e)
-        )
-
-      );
-    };
-
-  const revertir = (
-    evento: HistorialEvento
-  ) => {
-
-    const data =
-      localStorage.getItem(
-        "dispositivos"
-      );
-
-    if (!data) return;
-
-    const dispositivos =
-      JSON.parse(data);
-
-    const dispositivo =
-      dispositivos.find(
-        (d: any) =>
-
-          d.nombre ===
-            evento.dispositivoNombre
-
-          &&
-
-          d.tipo ===
-            evento.dispositivoTipo
-      );
-
-    if (!dispositivo)
-      return;
-
-    dispositivo.activo =
-      !dispositivo.activo;
-
-    localStorage.setItem(
-
-      "dispositivos",
-
-      JSON.stringify(
-        dispositivos
-      )
+      HistorialService.obtener()
 
     );
 
-    const historial =
-      JSON.parse(
-
-        localStorage.getItem(
-          "historial"
-        ) || "[]"
-
-      );
-
-    historial.push({
-
-      dispositivoNombre:
-        dispositivo.nombre,
-
-      dispositivoTipo:
-        dispositivo.tipo,
-
-      accion:
-        "revertido",
-
-      fecha:
-        new Date()
-          .toLocaleString()
-
-    });
-
-    localStorage.setItem(
-
-      "historial",
-
-      JSON.stringify(
-        historial
-      )
-
-    );
-
-    cargarEventos();
   };
 
-  return (
+  const borrarHistorial=()=>{
+
+    if(
+
+      !confirm(
+
+        "¿Seguro que quieres borrar todo el historial?"
+
+      )
+
+    )return;
+
+    HistorialService.limpiar();
+
+    setEventos([]);
+
+  };
+
+  const revertir=(evento:HistorialEvento)=>{
+
+    const dispositivos=
+
+      DispositivosService.obtener(
+
+        evento.dispositivoTipo
+
+      );
+
+    const dispositivo=
+
+      dispositivos.find(
+
+        d=>
+
+          d.nombre===evento.dispositivoNombre&&
+
+          d.tipo===evento.dispositivoTipo
+
+      );
+
+    if(!dispositivo)return;
+
+    dispositivo.toggle();
+
+    DispositivosService.guardar(
+
+      evento.dispositivoTipo,
+
+      dispositivos
+
+    );
+
+    HistorialService.agregar(
+
+      dispositivo.nombre,
+
+      dispositivo.tipo,
+
+      "revertido"
+
+    );
+
+    cargarEventos();
+
+  };
+
+  return(
 
     <div className="layout">
 
-      <Header
-        titulo="HISTORIAL"
-      />
+      <Header titulo="HISTORIAL"/>
 
-      <div
-        className="
-          historial-container
-        "
-      >
+      <div className="historial-acciones">
 
-        {eventos.map(
-          (
-            evento,
-            index
-          ) => (
+        <button
 
-          <div
-            key={index}
-            className="
-              historial-card
-            "
-          >
+          className="btn-borrar-historial"
 
-            <span>
+          onClick={borrarHistorial}
 
-              {evento.accion ===
-                "revertido"
+          title="Borrar historial"
 
-                ? (
+        >
 
-                  <>
-                    Se revirtió el estado del dispositivo
+          <IconoBorrar/>
 
-                    {" "}
+        </button>
 
-                    <strong>
-                      {
-                        evento.dispositivoNombre
-                      }
-                    </strong>
+      </div>
 
-                    {" a las "}
+      <div className="historial-container">
 
-                    {
-                      evento.fecha
-                    }
-                  </>
+        {
 
-                )
+          eventos.map(
 
-                : (
+            (evento,index)=>(
 
-                  <>
-                    El dispositivo
+              <div
 
-                    {" "}
+                key={index}
 
-                    <strong>
-                      {
-                        evento.dispositivoNombre
-                      }
-                    </strong>
-
-                    {" fue "}
-
-                    {
-                      evento.accion
-                    }
-
-                    {" a las "}
-
-                    {
-                      evento.fecha
-                    }
-                  </>
-
-                )}
-
-            </span>
-
-            {evento.accion !==
-              "revertido" && (
-
-              <button
-
-                className="
-                  btn-revertir
-                "
-
-                onClick={() =>
-                  revertir(
-                    evento
-                  )
-                }
+                className="historial-card"
 
               >
 
-                <IconoRevertir />
+                <span>
 
-              </button>
+                  {
 
-            )}
+                    evento.accion==="revertido"
 
-          </div>
-        ))}
+                    ?
+
+                    <>
+
+                      Se revirtió el estado del dispositivo <strong>{evento.dispositivoNombre}</strong> a las {evento.fecha}
+
+                    </>
+
+                    :
+
+                    evento.dispositivoTipo==="escena"
+
+                    ?
+
+                    <>
+
+                      La escena <strong>{evento.dispositivoNombre}</strong> fue {evento.accion} a las {evento.fecha}
+
+                    </>
+
+                    :
+
+                    <>
+
+                      El dispositivo <strong>{evento.dispositivoNombre}</strong> fue {evento.accion} a las {evento.fecha}
+
+                    </>
+
+                  }
+
+                </span>
+
+                {
+
+                  evento.dispositivoTipo!=="escena"&&
+
+                  evento.accion!=="revertido"&&
+
+                  <button
+
+                    className="btn-revertir"
+
+                    onClick={()=>revertir(evento)}
+
+                    title="Revertir"
+
+                  >
+
+                    <IconoRevertir/>
+
+                  </button>
+
+                }
+
+              </div>
+
+            )
+
+          )
+
+        }
 
       </div>
 
     </div>
+
   );
+
 }
 
 export default Historial;
