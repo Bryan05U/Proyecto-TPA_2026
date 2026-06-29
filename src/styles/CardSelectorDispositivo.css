@@ -1,0 +1,45 @@
+.btn-seleccionar{
+
+  width:100%;
+
+  height:40px;
+
+  border:none;
+
+  border-radius:12px;
+
+  background:var(--color-borde);
+
+  color:white;
+
+  font-weight:600;
+
+  cursor:pointer;
+
+  transition:.2s;
+
+}
+
+.btn-seleccionar:hover{
+
+  transform:scale(1.03);
+
+}
+
+.btn-seleccionado{
+
+  width:100%;
+
+  height:40px;
+
+  border:none;
+
+  border-radius:12px;
+
+  background:#47b96b;
+
+  color:white;
+
+  font-weight:600;
+
+}

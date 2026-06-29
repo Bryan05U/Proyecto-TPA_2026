@@ -1,0 +1,23 @@
+.accion-btn{
+
+  border:none;
+
+  background:transparent;
+
+  cursor:pointer;
+
+  display:flex;
+
+  justify-content:center;
+
+  align-items:center;
+
+}
+
+.accion-btn svg{
+
+  width:28px;
+
+  height:28px;
+
+}

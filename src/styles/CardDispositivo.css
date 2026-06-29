@@ -1,106 +1,109 @@
-.contenido-dispositivo {
+.switch{
 
-  width: 100%;
-  height: 140px;
+  position:relative;
 
-  display: flex;
+  display:inline-block;
 
-  flex-direction: column;
+  width:80px;
 
-  align-items: center;
+  height:40px;
 
-  justify-content: flex-start;
-
-  margin-top: 0px;
 }
 
-.base-card {
+.switch input{
 
-  box-sizing: border-box;
+  opacity:0;
+
+  width:0;
+
+  height:0;
+
 }
 
-.icono-dispositivo {
+.slider{
 
-  width: 150px;
-  height: 150px;
+  position:absolute;
 
-  margin-top: -40px;
+  inset:0;
+
+  cursor:pointer;
+
+  background:#CCCCCC;
+
+  border-radius:34px;
+
+  transition:.3s;
+
 }
 
-.icono-dispositivo svg {
+.slider:before{
 
-  width: 100%;
-  height: 100%;
+  content:"";
 
-  fill: var(--color-iconos);
+  position:absolute;
+
+  width:30px;
+
+  height:30px;
+
+  left:5px;
+
+  top:5px;
+
+  background:white;
+
+  border-radius:50%;
+
+  transition:.3s;
+
 }
 
-.switch {
+.switch input:checked + .slider{
 
-  position: relative;
+  background:var(--color-borde);
 
-  display: inline-block;
-
-  width: 80px;
-  height: 40px;
-
-  margin-top: -8px;
-
-  flex-shrink: 0;
 }
 
-.switch input {
+.switch input:checked + .slider:before{
 
-  opacity: 0;
+  transform:translateX(40px);
 
-  width: 0;
-  height: 0;
 }
 
-.slider {
+.accion-btn{
 
-  position: absolute;
+  width:38px;
 
-  cursor: pointer;
+  height:38px;
 
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  border:none;
 
-  background-color: #ccc;
+  background:transparent;
 
-  transition: .4s;
+  cursor:pointer;
 
-  border-radius: 34px;
+  transition:.2s;
+
+  display:flex;
+
+  justify-content:center;
+
+  align-items:center;
+
 }
 
-.slider:before {
+.accion-btn:hover{
 
-  position: absolute;
+  transform:scale(1.08);
 
-  content: "";
-
-  height: 30px;
-  width: 30px;
-
-  left: 5px;
-  bottom: 5px;
-
-  background-color: white;
-
-  transition: .4s;
-
-  border-radius: 50%;
 }
 
-input:checked + .slider {
+.accion-btn svg{
 
-  background-color:
-    var(--color-borde);
-}
+  width:24px;
 
-input:checked + .slider:before {
+  height:24px;
 
-  transform: translateX(40px);
+  fill:var(--color-iconos);
+
 }
