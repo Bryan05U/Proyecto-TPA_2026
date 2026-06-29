@@ -1,29 +1,66 @@
-export class Dispositivo {
+import { Componente } from "./Componente";
 
-  nombre: string;
-  tipo: string;
-  activo: boolean;
+export class Dispositivo extends Componente{
+
+  tipo:string;
+
+  activo:boolean;
 
   constructor(
-    nombre: string,
-    tipo: string
-  ) {
+    nombre:string,
+    tipo:string
+  ){
 
-    this.nombre = nombre;
-    this.tipo = tipo;
-    this.activo = false;
+    super(nombre);
+
+    this.tipo=tipo;
+
+    this.activo=false;
+
   }
 
-  toggle(): void {
+  activar():void{
 
-    this.activo =
-      !this.activo;
+    this.activo=true;
+
+  }
+
+  desactivar():void{
+
+    this.activo=false;
+
+  }
+
+  toggle():void{
+
+    this.activo=!this.activo;
+
   }
 
   cambiarNombre(
-    nombre: string
-  ): void {
+    nombre:string
+  ):void{
 
-    this.nombre = nombre;
+    this.nombre=nombre;
+
   }
+
+  static fromJSON(
+    obj:any
+  ):Dispositivo{
+
+    const dispositivo=new Dispositivo(
+
+      obj.nombre,
+
+      obj.tipo
+
+    );
+
+    dispositivo.activo=obj.activo;
+
+    return dispositivo;
+
+  }
+
 }
