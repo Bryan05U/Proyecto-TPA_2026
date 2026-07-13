@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { ToggleDispositivoCommand } from "../domain/commands/ToggleDispositivoCommand";
 
@@ -6,316 +6,511 @@ import Header from "../components/Header";
 import Boton from "../components/Boton";
 import CardDispositivo from "../components/CardDispositivo";
 import FormularioDispositivo from "../components/FormularioDispositivo";
+import Editar from "../components/Editar";
+import Confirmacion from "../components/Confirmacion";
 
-import { DispositivoComun }
-from "../domain/DispositivoComun";
+import { Dispositivo } from "../domain/Dispositivo";
+import { DispositivoFactory } from "../factory/DispositivoFactory";
+import { DispositivosService } from "../services/DispositivosService";
 
-import { DispositivoFactory }
-from "../factory/DispositivoFactory";
-
-import IconoAnadir
-from "../assets/Botones/Logo_Añadir.svg?react";
+import IconoAnadir from "../assets/Botones/Logo_Añadir.svg?react";
 
 import "../styles/Dispositivos.css";
 
-function Dispositivos() {
+function Dispositivos(){
 
-  const categorias = [
+  const categorias=[
+
     "tv",
+
     "luces",
+
     "ventiladores",
-    "aspiradora"
+
+    "alarmas"
+
   ];
 
-  const [
-    categoriaSeleccionada,
-    setCategoriaSeleccionada
-  ] = useState("tv");
+  const[categoriaSeleccionada,setCategoriaSeleccionada]=
 
-  const [
-    dispositivos,
-    setDispositivos
-  ] = useState<DispositivoComun[]>(() => {
+    useState(categorias[0]);
 
-    const data =
-      localStorage.getItem(
-        "dispositivos"
-      );
+  const[dispositivos,setDispositivos]=
 
-    if (!data) return [];
+    useState<Dispositivo[]>(
 
-    return JSON.parse(data).map(
-      (d: any) =>
-        DispositivoComun.fromJSON(d)
-    );
-  });
+      DispositivosService.obtenerTodos()
 
-  const [
-    mostrarFormulario,
-    setMostrarFormulario
-  ] = useState(false);
-
-  useEffect(() => {
-
-    localStorage.setItem(
-      "dispositivos",
-      JSON.stringify(dispositivos)
     );
 
-  }, [dispositivos]);
+  const[mostrarFormulario,setMostrarFormulario]=
 
-  const agregarDispositivo = (
-    nombre: string
-  ) => {
+    useState(false);
 
-    const nuevo =
-      DispositivoFactory.crear(
-        nombre,
-        categoriaSeleccionada
-      );
+  const[dispositivoEditando,setDispositivoEditando]=
 
-    setDispositivos([
-      ...dispositivos,
-      nuevo
-    ]);
+    useState<Dispositivo|null>(null);
 
-    setMostrarFormulario(false);
+  const[dispositivoEliminar,setDispositivoEliminar]=
+
+    useState<Dispositivo|null>(null);
+
+  const[errorNombre,setErrorNombre]=
+
+    useState("");
+
+  const refrescar=()=>{
+
+    setDispositivos(
+
+      DispositivosService.obtenerTodos()
+
+    );
+
   };
 
-  const toggleDispositivo = (
-    index: number
-  ) => {
+  const agregarDispositivo=(
 
-    const copia =
-      [...dispositivos];
+    nombre:string
 
-    const dispositivo =
-      copia[index];
+  )=>{
 
-    const comando =
+    if(
+
+      DispositivosService.existeNombre(
+
+        nombre
+
+      )
+
+    ){
+
+      setErrorNombre(
+
+        "Ya existe un dispositivo con ese nombre."
+
+      );
+
+      return;
+
+    }
+
+    const nuevo=
+
+      DispositivoFactory.crear(
+
+        nombre,
+
+        categoriaSeleccionada
+
+      );
+
+    DispositivosService.agregar(
+
+      nuevo
+
+    );
+
+    refrescar();
+
+    setMostrarFormulario(
+
+      false
+
+    );
+
+    setErrorNombre("");
+
+  };
+
+  const toggleDispositivo=(
+
+    dispositivo:Dispositivo
+
+  )=>{
+
+    const comando=
+
       new ToggleDispositivoCommand(
+
         dispositivo
+
       );
 
     comando.execute();
 
-    const historial =
-      JSON.parse(
+    refrescar();
 
-        localStorage.getItem(
-          "historial"
-        ) || "[]"
+  };
 
-      );
+  const eliminarDispositivo=(
 
-    historial.push({
+    dispositivo:Dispositivo
 
-      dispositivoNombre:
-        dispositivo.nombre,
+  )=>{
 
-      dispositivoTipo:
-        dispositivo.tipo,
+    setDispositivoEliminar(
 
-      accion:
-        dispositivo.activo
-          ? "activado"
-          : "desactivado",
-
-      fecha:
-        new Date()
-          .toLocaleString()
-
-    });
-
-    localStorage.setItem(
-
-      "historial",
-
-      JSON.stringify(
-        historial
-      )
+      dispositivo
 
     );
 
-    setDispositivos([
-      ...copia
-    ]);
   };
 
-  const eliminarDispositivo = (
-    index: number
-  ) => {
+  const editarDispositivo=(
 
-    const confirmar = confirm(
-      "¿Eliminar dispositivo?"
+    dispositivo:Dispositivo
+
+  )=>{
+
+    setErrorNombre("");
+
+    setDispositivoEditando(
+
+      dispositivo
+
     );
 
-    if (!confirmar) return;
-
-    const copia = [...dispositivos];
-
-    copia.splice(index, 1);
-
-    setDispositivos(copia);
   };
 
-  const editarDispositivo = (
-    index: number
-  ) => {
+  const dispositivosFiltrados=
 
-    const nuevoNombre =
-      prompt("Nuevo nombre");
-
-    if (!nuevoNombre) return;
-
-    const copia = [...dispositivos];
-
-    copia[index].cambiarNombre(
-      nuevoNombre
-    );
-
-    setDispositivos([...copia]);
-  };
-
-  const dispositivosFiltrados =
     dispositivos.filter(
-      d =>
-        d.tipo ===
-        categoriaSeleccionada
+
+      d=>
+
+        d.tipo===categoriaSeleccionada
+
     );
 
-  return (
+  return(
 
     <div className="layout">
 
-      <Header
-        titulo="DISPOSITIVOS"
-      />
+      <Header titulo="DISPOSITIVOS"/>
 
       <div className="dispositivos-layout">
 
-        {/* SIDEBAR */}
-
         <aside className="sidebar">
 
-          {categorias.map(
-            categoria => (
+          {
 
-            <button
+            categorias.map(
 
-              key={categoria}
+              categoria=>
 
-              className={
-                categoria ===
-                categoriaSeleccionada
+                <button
 
-                ? "categoria activa"
+                  key={categoria}
 
-                : "categoria"
-              }
+                  className={
 
-              onClick={() =>
-                setCategoriaSeleccionada(
-                  categoria
-                )
-              }
+                    categoria===categoriaSeleccionada
 
-            >
+                    ?
 
-              {categoria.toUpperCase()}
+                    "categoria activa"
 
-            </button>
-          ))}
+                    :
+
+                    "categoria"
+
+                  }
+
+                  onClick={()=>
+
+                    setCategoriaSeleccionada(
+
+                      categoria
+
+                    )
+
+                  }
+
+                >
+
+                  {
+
+                    categoria.toUpperCase()
+
+                  }
+
+                </button>
+
+            )
+
+          }
 
         </aside>
 
-        {/* CONTENIDO */}
-
         <main className="contenido-dispositivos">
 
-          {dispositivosFiltrados.map(
-            (
-              dispositivo,
-              index
-            ) => (
+          {
 
-            <CardDispositivo
+            dispositivosFiltrados.map(
 
-              key={index}
+              dispositivo=>
 
-              dispositivo={dispositivo}
+                <CardDispositivo
 
-              onToggle={() =>
-                toggleDispositivo(
-                  dispositivos.indexOf(
+                  key={
+
+                    dispositivo.nombre+
+
+                    dispositivo.tipo
+
+                  }
+
+                  dispositivo={
+
                     dispositivo
-                  )
-                )
-              }
 
-              onEditar={() =>
-                editarDispositivo(
-                  dispositivos.indexOf(
-                    dispositivo
-                  )
-                )
-              }
+                  }
 
-              onEliminar={() =>
-                eliminarDispositivo(
-                  dispositivos.indexOf(
-                    dispositivo
-                  )
-                )
-              }
+                  onToggle={()=>
 
-            />
-          ))}
+                    toggleDispositivo(
+
+                      dispositivo
+
+                    )
+
+                  }
+
+                  onEditar={()=>
+
+                    editarDispositivo(
+
+                      dispositivo
+
+                    )
+
+                  }
+
+                  onEliminar={()=>
+
+                    eliminarDispositivo(
+
+                      dispositivo
+
+                    )
+
+                  }
+
+                />
+
+            )
+
+          }
 
           <Boton
 
             nombre=""
 
-            icono={
-              <IconoAnadir />
-            }
+            icono={<IconoAnadir/>}
 
-            onClick={() =>
+            classNameExtra="boton-seguridad boton-anadir"
+
+            onClick={()=>
+
               setMostrarFormulario(
+
                 true
+
               )
+
             }
 
-            classNameExtra="
-              boton-seguridad
-              boton-anadir
-            "
           />
 
         </main>
 
       </div>
 
-      {mostrarFormulario && (
+      {
+
+        mostrarFormulario&&
 
         <FormularioDispositivo
 
           onCrear={
+
             agregarDispositivo
+
           }
 
-          onCerrar={() =>
+          onCerrar={()=>
+
             setMostrarFormulario(
+
               false
+
             )
+
           }
 
         />
 
-      )}
+      }
+
+      {
+
+        dispositivoEditando&&
+
+        <Editar
+
+          titulo="Editar dispositivo"
+
+          valorInicial={
+
+            dispositivoEditando.nombre
+
+          }
+
+          textoAceptar="Guardar"
+
+          textoCancelar="Cancelar"
+
+          error={
+
+            errorNombre
+
+          }
+
+          onAceptar={
+
+            nombre=>{
+
+              if(
+
+                nombre===""
+
+              )return;
+
+              if(
+
+                DispositivosService.existeNombre(
+
+                  nombre,
+
+                  dispositivoEditando.nombre
+
+                )
+
+              ){
+
+                setErrorNombre(
+
+                  "Ya existe un dispositivo con ese nombre."
+
+                );
+
+                return;
+
+              }
+
+              const nombreAnterior=
+
+                dispositivoEditando.nombre;
+
+              dispositivoEditando.cambiarNombre(
+
+                nombre
+
+              );
+
+              DispositivosService.renombrar(
+
+                nombreAnterior,
+
+                dispositivoEditando
+
+              );
+
+              refrescar();
+
+              setErrorNombre("");
+
+              setDispositivoEditando(
+
+                null
+
+              );
+
+            }
+
+          }
+
+          onCancelar={()=>{
+
+            setErrorNombre("");
+
+            setDispositivoEditando(
+
+              null
+
+            );
+
+          }}
+
+        />
+
+      }
+
+      {
+
+        dispositivoEliminar&&
+
+        <Confirmacion
+
+          titulo="Eliminar dispositivo"
+
+          mensaje={
+
+            `¿Seguro que deseas eliminar "${dispositivoEliminar.nombre}"?`
+
+          }
+
+          textoAceptar="Eliminar"
+
+          textoCancelar="Cancelar"
+
+          onAceptar={()=>{
+
+            DispositivosService.eliminar(
+
+              dispositivoEliminar
+
+            );
+
+            refrescar();
+
+            setDispositivoEliminar(
+
+              null
+
+            );
+
+          }}
+
+          onCancelar={()=>
+
+            setDispositivoEliminar(
+
+              null
+
+            )
+
+          }
+
+        />
+
+      }
 
     </div>
+
   );
+
 }
 
 export default Dispositivos;

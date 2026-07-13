@@ -1,14 +1,13 @@
 .base-card {
 
-  width: 350px;
-  height: 250px;
+  width: var(--card-ancho);
+  height: var(--card-largo);
 
   position: relative;
 
   border-radius: 20px;
 
-  border: 10px solid
-    var(--color-borde);
+  border: var(--borde);
 
   background-color:
     var(--color-botones);

@@ -1,41 +1,22 @@
-import BaseCard from "./BaseCard";
+import BaseCardDispositivo from "./BaseCardDispositivo";
 
-import { DispositivoSeguridad }
-from "../domain/DispositivoSeguridad";
+import { Dispositivo } from "../domain/Dispositivo";
 
-// ICONOS
-
-import IconoCamara from
-"../assets/Seguridad/Logo_Camara.svg?react";
-
-import IconoVentana from
-"../assets/Seguridad/Logo_Ventana.svg?react";
-
-import IconoPuerta from
-"../assets/Seguridad/Logo_Puerta.svg?react";
-
-import IconoTemperatura from
-"../assets/Seguridad/Logo_Temperatura.svg?react";
-
-// BOTONES
-
-import IconoEditar from
-"../assets/Botones/Logo_Editar.svg?react";
-
-import IconoBorrar from
-"../assets/Botones/Logo_Borrar.svg?react";
+import IconoEditar from "../assets/Botones/Logo_Editar.svg?react";
+import IconoBorrar from "../assets/Botones/Logo_Borrar.svg?react";
 
 import "../styles/CardDispositivo.css";
 
-type Props = {
+type Props={
 
-  dispositivo: DispositivoSeguridad;
+  dispositivo:Dispositivo;
 
-  onToggle: () => void;
+  onToggle:()=>void;
 
-  onEliminar: () => void;
+  onEditar:()=>void;
 
-  onEditar: () => void;
+  onEliminar:()=>void;
+
 };
 
 function CardDispositivo({
@@ -44,83 +25,72 @@ function CardDispositivo({
 
   onToggle,
 
-  onEliminar,
+  onEditar,
 
-  onEditar
+  onEliminar
 
-}: Props) {
+}:Props){
 
-  const renderIcono = () => {
+  return(
 
-    switch (dispositivo.tipo) {
+    <BaseCardDispositivo
 
-      case "camaras":
-        return <IconoCamara />;
-
-      case "ventanas":
-        return <IconoVentana />;
-
-      case "puertas":
-        return <IconoPuerta />;
-
-      case "temperatura":
-        return <IconoTemperatura />;
-
-      default:
-        return null;
-    }
-  };
-
-  return (
-
-    <BaseCard
-
-      titulo={dispositivo.nombre}
+      dispositivo={dispositivo}
 
       acciones={
+
         <>
 
           <button
+
             className="accion-btn"
+
             onClick={onEditar}
+
           >
-            <IconoEditar />
+
+            <IconoEditar/>
+
           </button>
 
           <button
+
             className="accion-btn"
+
             onClick={onEliminar}
+
           >
-            <IconoBorrar />
+
+            <IconoBorrar/>
+
           </button>
 
         </>
+
       }
 
     >
 
-      <div className="contenido-dispositivo">
+      <label className="switch">
 
-        <div className="icono-dispositivo">
-          {renderIcono()}
-        </div>
+        <input
 
-        <label className="switch">
+          type="checkbox"
 
-          <input
-            type="checkbox"
-            checked={dispositivo.activo}
-            onChange={onToggle}
-          />
+          checked={dispositivo.activo}
 
-          <span className="slider"></span>
+          onChange={onToggle}
 
-        </label>
+        />
 
-      </div>
+        <span className="slider"></span>
 
-    </BaseCard>
+      </label>
+
+    </BaseCardDispositivo>
+
   );
+
 }
 
 export default CardDispositivo;

@@ -1,8 +1,6 @@
-import { DispositivoComun }
-from "../domain/DispositivoComun";
-
-import { DispositivoSeguridad }
-from "../domain/DispositivoSeguridad";
+import { Dispositivo } from "../domain/Dispositivo";
+import { DispositivoComun } from "../domain/DispositivoComun";
+import { DispositivoSeguridad } from "../domain/DispositivoSeguridad";
 
 export class DispositivoFactory {
 
@@ -35,4 +33,23 @@ export class DispositivoFactory {
       tipo
     );
   }
+
+  static fromJSON(
+    obj:any
+  ):Dispositivo{
+
+    const dispositivo=this.crear(
+
+      obj.nombre,
+
+      obj.tipo
+
+    );
+
+    dispositivo.activo=obj.activo;
+
+    return dispositivo;
+
+  }
+
 }

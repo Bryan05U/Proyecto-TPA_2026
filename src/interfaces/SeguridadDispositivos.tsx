@@ -1,253 +1,406 @@
-import {
-  useEffect,
-  useState
-} from "react";
-
-import { ToggleDispositivoCommand } from "../domain/commands/ToggleDispositivoCommand";
-
-import {
-  useParams
-} from "react-router-dom";
+import { useEffect,useState } from "react";
+import { useParams } from "react-router-dom";
 
 import Header from "../components/Header";
 import Boton from "../components/Boton";
 import CardDispositivo from "../components/CardDispositivo";
 import FormularioDispositivo from "../components/FormularioDispositivo";
+import Editar from "../components/Editar";
+import Confirmacion from "../components/Confirmacion";
 
-import { DispositivoSeguridad }
-from "../domain/DispositivoSeguridad";
+import { DispositivoSeguridad } from "../domain/DispositivoSeguridad";
+import { DispositivoFactory } from "../factory/DispositivoFactory";
+import { ToggleDispositivoCommand } from "../domain/commands/ToggleDispositivoCommand";
+import { DispositivosService } from "../services/DispositivosService";
 
-import { DispositivoFactory }
-from "../factory/DispositivoFactory";
+import IconoAnadir from "../assets/Botones/Logo_Añadir.svg?react";
 
 import "../styles/Layout.css";
-import IconoAnadir from "../assets/Botones/Logo_Añadir.svg?react"
 
-function SeguridadDispositivos() {
+function SeguridadDispositivos(){
 
-  const { tipo } = useParams();
+  const{tipo}=useParams();
 
-  // 🔹 DISPOSITIVOS
-  const [dispositivos, setDispositivos] =
-    useState<DispositivoSeguridad[]>(() => {
+  const[dispositivos,setDispositivos]=
 
-      const data =
-        localStorage.getItem(
-          tipo || ""
-        );
+  useState<DispositivoSeguridad[]>([]);
 
-      if (!data) return [];
+  const[mostrarFormulario,setMostrarFormulario]=
 
-      return JSON.parse(data).map(
-        (d: any) =>
-          DispositivoSeguridad.fromJSON(d)
-      );
-    });
+  useState(false);
 
-  // 🔹 MODAL
-  const [
-    mostrarFormulario,
+  const[dispositivoEditando,setDispositivoEditando]=
 
-    setMostrarFormulario
+  useState<DispositivoSeguridad|null>(null);
 
-  ] = useState(false);
+  const[dispositivoEliminar,setDispositivoEliminar]=
 
-  // 🔹 GUARDAR
-  useEffect(() => {
+  useState<DispositivoSeguridad|null>(null);
 
-    localStorage.setItem(
-      tipo || "",
-      JSON.stringify(dispositivos)
+  useEffect(()=>{
+
+    if(!tipo)return;
+
+    setDispositivos(
+
+      DispositivosService.obtener(
+
+        tipo
+
+      ) as DispositivoSeguridad[]
+
     );
 
-  }, [dispositivos, tipo]);
+  },[tipo]);
 
-  // 🔹 CREAR
-  const agregarDispositivo = (
-    nombre: string
-  ) => {
+  const refrescar=()=>{
 
-    const nuevo =
-      DispositivoFactory.crear(
-        nombre,
-        tipo || ""
-      );
+    if(!tipo)return;
 
-    setDispositivos([
-      ...dispositivos,
-      nuevo
-    ]);
+    setDispositivos(
 
-    setMostrarFormulario(false);
+      DispositivosService.obtener(
+
+        tipo
+
+      ) as DispositivoSeguridad[]
+
+    );
+
   };
 
-  // 🔹 TOGGLE
-  const toggleDispositivo = (
-    index: number
-  ) => {
+  const agregarDispositivo=(
 
-    const copia =
-      [...dispositivos];
+    nombre:string
 
-    const dispositivo =
-      copia[index];
+  )=>{
 
-    const comando =
+    const nuevo=
+
+      DispositivoFactory.crear(
+
+        nombre,
+
+        tipo||""
+
+      );
+
+    DispositivosService.agregar(
+
+      nuevo
+
+    );
+
+    refrescar();
+
+    setMostrarFormulario(false);
+
+  };
+
+  const toggleDispositivo=(
+
+    dispositivo:DispositivoSeguridad
+
+  )=>{
+
+    const comando=
+
       new ToggleDispositivoCommand(
+
         dispositivo
+
       );
 
     comando.execute();
 
-    const historial =
-      JSON.parse(
+    DispositivosService.actualizar(
 
-        localStorage.getItem(
-          "historial"
-        ) || "[]"
-
-      );
-
-    historial.push({
-
-      dispositivoNombre:
-        dispositivo.nombre,
-
-      dispositivoTipo:
-        dispositivo.tipo,
-
-      accion:
-        dispositivo.activo
-          ? "activado"
-          : "desactivado",
-
-      fecha:
-        new Date()
-          .toLocaleString()
-
-    });
-
-    localStorage.setItem(
-
-      "historial",
-
-      JSON.stringify(
-        historial
-      )
+      dispositivo
 
     );
 
-    setDispositivos([
-      ...copia
-    ]);
+    refrescar();
+
   };
 
-  // 🔹 ELIMINAR
-const eliminarDispositivo = (
-  index: number
-) => {
+  const editarDispositivo=(
 
-  const confirmar =
-    confirm(
-      "¿Seguro que quieres eliminar este dispositivo?"
+    dispositivo:DispositivoSeguridad
+
+  )=>{
+
+    setDispositivoEditando(
+
+      dispositivo
+
     );
 
-  if (!confirmar) return;
-
-  const copia = [...dispositivos];
-
-  copia.splice(index, 1);
-
-  setDispositivos(copia);
-};
-
-  // 🔹 EDITAR
-  const cambiarNombre = (
-    index: number
-  ) => {
-
-    const nuevoNombre =
-      prompt("Nuevo nombre");
-
-    if (!nuevoNombre) return;
-
-    const copia = [...dispositivos];
-
-    copia[index].cambiarNombre(
-      nuevoNombre
-    );
-
-    setDispositivos([...copia]);
   };
 
-  return (
+  const eliminarDispositivo=(
+
+    dispositivo:DispositivoSeguridad
+
+  )=>{
+
+    setDispositivoEliminar(
+
+      dispositivo
+
+    );
+
+  };
+
+  return(
 
     <div className="layout">
 
       <Header
+
         titulo={
-          tipo?.toUpperCase() || ""
+
+          tipo?.toUpperCase()||""
+
         }
+
       />
 
-      <div className="
-        contenedor
-        layout-escenas
-      ">
+      <div className="contenedor layout-escenas">
 
-        {/* DISPOSITIVOS */}
-        {dispositivos.map(
-          (dispositivo, index) => (
+        {
 
-          <CardDispositivo
+          dispositivos.map(
 
-            key={index}
+            dispositivo=>
 
-            dispositivo={dispositivo}
+              <CardDispositivo
 
-            onToggle={() =>
-              toggleDispositivo(index)
-            }
+                key={
 
-            onEditar={() =>
-              cambiarNombre(index)
-            }
+                  dispositivo.nombre+
 
-            onEliminar={() =>
-              eliminarDispositivo(index)
-            }
-          />
-        ))}
+                  dispositivo.tipo
 
-        {/* BOTÓN AGREGAR */}
+                }
+
+                dispositivo={
+
+                  dispositivo
+
+                }
+
+                onToggle={()=>
+
+                  toggleDispositivo(
+
+                    dispositivo
+
+                  )
+
+                }
+
+                onEditar={()=>
+
+                  editarDispositivo(
+
+                    dispositivo
+
+                  )
+
+                }
+
+                onEliminar={()=>
+
+                  eliminarDispositivo(
+
+                    dispositivo
+
+                  )
+
+                }
+
+              />
+
+          )
+
+        }
+
         <Boton
-          classNameExtra="boton-seguridad boton-anadir"
+
           nombre=""
-          icono={<IconoAnadir />}
-          onClick={() =>
-            setMostrarFormulario(true)
+
+          icono={<IconoAnadir/>}
+
+          classNameExtra=
+
+          "boton-seguridad boton-anadir"
+
+          onClick={()=>
+
+            setMostrarFormulario(
+
+              true
+
+            )
+
           }
+
         />
 
       </div>
 
-      {/* FORMULARIO */}
-      {mostrarFormulario && (
+      {
+
+        mostrarFormulario&&
 
         <FormularioDispositivo
 
-          onCrear={agregarDispositivo}
+          onCrear={
 
-          onCerrar={() =>
-            setMostrarFormulario(false)
+            agregarDispositivo
+
+          }
+
+          onCerrar={()=>
+
+            setMostrarFormulario(
+
+              false
+
+            )
+
           }
 
         />
 
-      )}
+      }
+
+      {
+
+        dispositivoEditando&&
+
+        <Editar
+
+          titulo="Editar dispositivo"
+
+          valorInicial={
+
+            dispositivoEditando.nombre
+
+          }
+
+          textoAceptar="Guardar"
+
+          textoCancelar="Cancelar"
+
+          onAceptar={
+
+            nombre=>{
+
+              if(
+
+                nombre===""
+
+              )return;
+
+              const nombreAnterior=
+
+                dispositivoEditando.nombre;
+
+              dispositivoEditando.cambiarNombre(
+
+                nombre
+
+              );
+
+              DispositivosService.renombrar(
+
+                nombreAnterior,
+
+                dispositivoEditando
+
+              );
+
+              refrescar();
+
+              setDispositivoEditando(
+
+                null
+
+              );
+
+            }
+
+          }
+
+          onCancelar={()=>
+
+            setDispositivoEditando(
+
+              null
+
+            )
+
+          }
+
+        />
+
+      }
+
+      {
+
+        dispositivoEliminar&&
+
+        <Confirmacion
+
+          titulo="Eliminar dispositivo"
+
+          mensaje={
+
+            `¿Seguro que deseas eliminar "${dispositivoEliminar.nombre}"?`
+
+          }
+
+          textoAceptar="Eliminar"
+
+          textoCancelar="Cancelar"
+
+          onAceptar={()=>{
+
+            DispositivosService.eliminar(
+
+              dispositivoEliminar
+
+            );
+
+            refrescar();
+
+            setDispositivoEliminar(
+
+              null
+
+            );
+
+          }}
+
+          onCancelar={()=>
+
+            setDispositivoEliminar(
+
+              null
+
+            )
+
+          }
+
+        />
+
+      }
 
     </div>
+
   );
+
 }
 
 export default SeguridadDispositivos;

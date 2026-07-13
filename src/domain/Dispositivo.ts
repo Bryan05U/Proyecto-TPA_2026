@@ -1,29 +1,103 @@
-export class Dispositivo {
+import { Componente } from "./Componente";
+import type { Observer } from "./observer/Observer";
+import type { Subject } from "./observer/Subject";
 
-  nombre: string;
-  tipo: string;
-  activo: boolean;
+export class Dispositivo extends Componente implements Subject{
+
+  tipo:string;
+
+  activo:boolean;
+
+  private observadores:Observer[]=[];
 
   constructor(
-    nombre: string,
-    tipo: string
-  ) {
+    nombre:string,
+    tipo:string
+  ){
 
-    this.nombre = nombre;
-    this.tipo = tipo;
-    this.activo = false;
+    super(nombre);
+
+    this.tipo=tipo;
+
+    this.activo=false;
+
   }
 
-  toggle(): void {
+  agregarObservador(
+    observer:Observer
+  ):void{
 
-    this.activo =
-      !this.activo;
+    this.observadores.push(observer);
+
+  }
+
+  quitarObservador(
+    observer:Observer
+  ):void{
+
+    this.observadores=
+      this.observadores.filter(
+
+        o=>o!==observer
+
+      );
+
+  }
+
+  private notificar():void{
+
+    this.observadores.forEach(
+
+      observer=>
+
+        observer.actualizar(this)
+
+    );
+
+  }
+
+  activar():void{
+
+    if(this.activo)return;
+
+    this.activo=true;
+
+    this.notificar();
+
+  }
+
+  desactivar():void{
+
+    if(!this.activo)return;
+
+    this.activo=false;
+
+    this.notificar();
+
+  }
+
+  toggle():void{
+
+    this.activo=!this.activo;
+
+    this.notificar();
+
+  }
+
+  cambiarEstadoSinNotificacion(
+    activo:boolean
+  ):void{
+
+    this.activo=activo;
+
   }
 
   cambiarNombre(
-    nombre: string
-  ): void {
+    nombre:string
+  ):void{
 
-    this.nombre = nombre;
+    this.nombre=nombre;
+
   }
+
 }

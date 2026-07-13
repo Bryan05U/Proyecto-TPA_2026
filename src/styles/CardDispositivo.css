@@ -72,9 +72,9 @@
 
 .accion-btn{
 
-  width:38px;
+  width: 60px;
 
-  height:38px;
+  height: 60px;
 
   border:none;
 
@@ -92,18 +92,18 @@
 
 }
 
-.accion-btn:hover{
+.accion-btn svg{
 
-  transform:scale(1.08);
+  width:36px;
+
+  height:36px;
+
+  fill:var(--color-iconos);
 
 }
 
-.accion-btn svg{
+.accion-btn:hover{
 
-  width:24px;
-
-  height:24px;
-
-  fill:var(--color-iconos);
+  transform:scale(1.08);
 
 }
