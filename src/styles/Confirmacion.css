@@ -1,0 +1,101 @@
+.confirmacion{
+
+  width:420px;
+
+  background:var(--color-botones);
+
+  border:6px solid var(--color-borde);
+
+  border-radius:24px;
+
+  padding:30px;
+
+  display:flex;
+
+  flex-direction:column;
+
+  gap:25px;
+
+}
+
+.confirmacion h2{
+
+  color:white;
+
+  text-align:center;
+
+  font-size:30px;
+
+  margin:0;
+
+}
+
+.confirmacion p{
+
+  color:white;
+
+  text-align:center;
+
+  font-size:22px;
+
+  margin:0;
+
+}
+
+.confirmacion-botones{
+
+  display:flex;
+
+  justify-content:space-between;
+
+  gap:20px;
+
+}
+
+.confirmacion-botones button{
+
+  flex:1;
+
+  height:50px;
+
+  border:none;
+
+  border-radius:15px;
+
+  font-size:18px;
+
+  font-weight:bold;
+
+  cursor:pointer;
+
+  transition:.2s;
+
+}
+
+.btn-principal{
+
+  background:var(--color-borde);
+
+  color:white;
+
+}
+
+.btn-principal:hover{
+
+  background:#083766;
+
+}
+
+.btn-secundario{
+
+  background:#E53935;
+
+  color:white;
+
+}
+
+.btn-secundario:hover{
+
+  background:#C62828;
+
+}

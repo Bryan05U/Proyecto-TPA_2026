@@ -1,32 +1,52 @@
 import { Dispositivo } from "../Dispositivo";
 import type { Command } from "./Command";
+import { DispositivosService } from "../../services/DispositivosService";
 
 export class ToggleDispositivoCommand
-implements Command {
+implements Command{
 
-  private dispositivo: Dispositivo;
+  private dispositivo:Dispositivo;
 
-  private estadoAnterior: boolean;
+  private estadoAnterior:boolean;
 
   constructor(
-    dispositivo: Dispositivo
-  ) {
 
-    this.dispositivo =
-      dispositivo;
+    dispositivo:Dispositivo
 
-    this.estadoAnterior =
+  ){
+
+    this.dispositivo=dispositivo;
+
+    this.estadoAnterior=
+
       dispositivo.activo;
+
   }
 
-  execute(): void {
+  execute():void{
 
-    this.dispositivo.toggle();
+    DispositivosService.toggle(
+
+      this.dispositivo
+
+    );
+
   }
 
-  undo(): void {
+  undo():void{
 
-    this.dispositivo.activo =
-      this.estadoAnterior;
+    this.dispositivo.cambiarEstadoSinNotificacion(
+
+      this.estadoAnterior
+
+    );
+
+    DispositivosService.actualizar(
+
+      this.dispositivo
+
+    );
+
   }
+
 }

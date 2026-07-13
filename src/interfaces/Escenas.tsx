@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 import Header from "../components/Header";
-import Boton from "../components/Boton";
 import CardEscena from "../components/CardEscena";
 import EditorEscena from "../components/EditorEscenas";
 
@@ -196,9 +195,9 @@ function Escenas(){
 
         }
 
-        <Boton
+                onEditar={()=>{
 
-          nombre=""
+                  setNuevaEscena(
 
           icono={<IconoAnadir/>}
 
@@ -228,7 +227,11 @@ function Escenas(){
 
         />
 
-      </div>
+      }
+
+      {
+
+        escenaEliminar&&
 
       {
 

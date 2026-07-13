@@ -1,4 +1,5 @@
 :root {
+/*Configuración de colores*/
     --color-fondo-login: #FFFFFF;
     --color-fondo-claro: #9CD5FF;
     --color-fondo-oscuro: #084283;
@@ -9,6 +10,14 @@
     --color-relleno: #0C2B4E;
     --color-borde-oscuro: black;
     --color-iconos: #9CD5FF;
+
+/*Configuración de Cards*/
+    --card-ancho:350px;
+    --card-largo:250px;
+    --card-largo-escenas:420px;
+
+/*Configuración de borde*/
+    --borde:10px solid var(--color-borde);
 }
 
 body {

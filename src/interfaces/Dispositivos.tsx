@@ -6,6 +6,8 @@ import Header from "../components/Header";
 import Boton from "../components/Boton";
 import CardDispositivo from "../components/CardDispositivo";
 import FormularioDispositivo from "../components/FormularioDispositivo";
+import Editar from "../components/Editar";
+import Confirmacion from "../components/Confirmacion";
 
 import { Dispositivo } from "../domain/Dispositivo";
 import { DispositivoFactory } from "../factory/DispositivoFactory";
@@ -15,7 +17,9 @@ import IconoAnadir from "../assets/Botones/Logo_Añadir.svg?react";
 
 import "../styles/Dispositivos.css";
 
-function Dispositivos() {
+function Dispositivos(){
+
+  const categorias=[
 
   const categorias = [
 
@@ -138,7 +142,7 @@ function Dispositivos() {
 
       <Header titulo="DISPOSITIVOS" />
 
-      <div className="dispositivos-layout">
+                    :
 
         <aside className="sidebar">
 
@@ -156,7 +160,9 @@ function Dispositivos() {
             </button>
           ))}
 
-        </aside>
+            )
+
+          }
 
         <main className="contenido-dispositivos">
 
@@ -189,7 +195,9 @@ function Dispositivos() {
       )}
 
     </div>
+
   );
+
 }
 
 export default Dispositivos;

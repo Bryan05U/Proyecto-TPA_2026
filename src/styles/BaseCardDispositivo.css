@@ -2,13 +2,12 @@
 
   position:relative;
 
-  width:230px;
-
-  height:260px;
+  width: var(--card-ancho);
+  height: var(--card-largo);
 
   border-radius:24px;
 
-  border:6px solid var(--color-borde);
+  border: var(--borde);
 
   background:var(--color-botones);
 
@@ -60,7 +59,27 @@
 
   flex-direction:column;
 
-  gap:14px;
+  gap:18px;
+
+  opacity:0;
+
+  visibility:hidden;
+
+  pointer-events:none;
+
+  transition:.25s;
+
+}
+
+.base-card-dispositivo:hover .base-card-header-acciones{
+
+  opacity:1;
+
+  visibility:visible;
+
+  pointer-events:auto;
+
+  right:18px;
 
 }
 
@@ -100,9 +119,9 @@
 
 .base-card-icono{
 
-  width:120px;
+  width:100px;
 
-  height:120px;
+  height:100px;
 
   margin:15px auto 0 auto;
 

@@ -1,6 +1,7 @@
 import { useEffect,useState } from "react";
 
 import Header from "../components/Header";
+import Confirmacion from "../components/Confirmacion";
 
 import { HistorialEvento } from "../domain/HistorialEvento";
 
@@ -9,6 +10,8 @@ import { DispositivosService } from "../services/DispositivosService";
 
 import IconoBorrar from "../assets/Botones/Logo_Borrar.svg?react";
 import IconoRevertir from "../assets/Botones/Logo_Revertir.svg?react";
+import FlechaDerecha from "../assets/Historial/Logo_Flecha_Derecha.svg?react";
+import FlechaAbajo from "../assets/Historial/Logo_Flecha_Abajo.svg?react";
 
 import "../styles/Historial.css";
 
@@ -70,7 +73,7 @@ function Historial(){
 
           d.tipo===evento.dispositivoTipo
 
-      );
+      !dispositivo.activo
 
     if(!dispositivo)return;
 
@@ -207,6 +210,36 @@ function Historial(){
         }
 
       </div>
+
+      {
+
+        mostrarConfirmacion&&
+
+        <Confirmacion
+
+          titulo="Borrar historial"
+
+          mensaje="¿Seguro que deseas borrar todo el historial?"
+
+          onAceptar={
+
+            borrarHistorial
+
+          }
+
+          onCancelar={()=>
+
+            setMostrarConfirmacion(
+
+              false
+
+            )
+
+          }
+
+        />
+
+      }
 
     </div>
 

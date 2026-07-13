@@ -13,7 +13,7 @@ import "../styles/Layout.css";
 
 function SeguridadDispositivos(){
 
-  const { tipo } = useParams();
+  const{tipo}=useParams();
 
   const [dispositivos,setDispositivos]=useState<DispositivoSeguridad[]>(()=>{
 
@@ -44,10 +44,13 @@ function SeguridadDispositivos(){
       tipo||""
     );
 
-    setDispositivos([
-      ...dispositivos,
+    DispositivosService.agregar(
+
       nuevo
-    ]);
+
+    );
+
+    refrescar();
 
     setMostrarFormulario(false);
 

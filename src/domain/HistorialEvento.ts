@@ -1,4 +1,4 @@
-export class HistorialEvento {
+export class HistorialEvento{
 
   dispositivoNombre: string;
   dispositivoTipo: string;
@@ -26,8 +26,10 @@ export class HistorialEvento {
   }
 
   static fromJSON(
-    obj: any
-  ): HistorialEvento {
+
+    obj:any
+
+  ):HistorialEvento{
 
     return new HistorialEvento(
       obj.dispositivoNombre,
