@@ -1,54 +1,27 @@
 export class HistorialEvento{
 
-  dispositivoNombre:string;
-
-  dispositivoTipo:string;
-
-  accion:string;
-
-  fecha:string;
-
-  detalles:{
-    nombre:string;
-    accion:string;
-  }[];
+  dispositivoNombre: string;
+  dispositivoTipo: string;
+  accion: string;
+  fecha: string;
 
   constructor(
+    dispositivoNombre: string,
+    dispositivoTipo: string,
+    accion: string,
+    fecha: string
+  ) {
 
-    dispositivoNombre:string,
+    this.dispositivoNombre = dispositivoNombre;
+    this.dispositivoTipo = dispositivoTipo;
+    this.accion = accion;
+    this.fecha = fecha;
 
-    dispositivoTipo:string,
+  }
 
-    accion:string,
+  esEscena(): boolean {
 
-    fecha:string,
-
-    detalles:{
-      nombre:string;
-      accion:string;
-    }[]=[]
-
-  ){
-
-    this.dispositivoNombre=
-
-      dispositivoNombre;
-
-    this.dispositivoTipo=
-
-      dispositivoTipo;
-
-    this.accion=
-
-      accion;
-
-    this.fecha=
-
-      fecha;
-
-    this.detalles=
-
-      detalles;
+    return this.dispositivoTipo === "escena";
 
   }
 
@@ -59,17 +32,10 @@ export class HistorialEvento{
   ):HistorialEvento{
 
     return new HistorialEvento(
-
       obj.dispositivoNombre,
-
       obj.dispositivoTipo,
-
       obj.accion,
-
-      obj.fecha,
-
-      obj.detalles??[]
-
+      obj.fecha
     );
 
   }

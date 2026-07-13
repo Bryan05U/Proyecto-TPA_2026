@@ -10,19 +10,15 @@ type Props={
 
   dispositivo:DispositivoEscena;
 
-  editable?:boolean;
-
   onToggle:()=>void;
 
   onEliminar:()=>void;
 
-}
+};
 
 function CardDispositivoEscena({
 
   dispositivo,
-
-  editable=false,
 
   onToggle,
 
@@ -38,45 +34,33 @@ function CardDispositivoEscena({
 
     >
 
-      {
+      <label className="switch">
 
-        editable&&(
+        <input
 
-          <>
+          type="checkbox"
 
-            <label className="switch">
+          checked={dispositivo.activo}
 
-              <input
+          onChange={onToggle}
 
-                type="checkbox"
+        />
 
-                checked={dispositivo.activo}
+        <span className="slider"></span>
 
-                onChange={onToggle}
+      </label>
 
-              />
+      <button
 
-              <span className="slider"></span>
+        className="accion-btn"
 
-            </label>
+        onClick={onEliminar}
 
-            <button
+      >
 
-              className="accion-btn"
+        <IconoBorrar/>
 
-              onClick={onEliminar}
-
-            >
-
-              <IconoBorrar/>
-
-            </button>
-
-          </>
-
-        )
-
-      }
+      </button>
 
     </BaseCardDispositivo>
 

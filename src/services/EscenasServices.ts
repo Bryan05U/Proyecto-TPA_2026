@@ -1,6 +1,4 @@
 import { Escena } from "../domain/Escena";
-import { HistorialService } from "./HistorialService";
-import { HistorialObserver } from "../domain/observer/HistorialObserver";
 
 export class EscenasService{
 
@@ -90,88 +88,6 @@ export class EscenasService{
     this.guardar(escenas);
 
     return escenas;
-
-  }
-
-  static toggle(
-    escena:Escena
-  ):void{
-
-    const activar=
-
-      !escena.estaActiva();
-
-    const detalles=
-
-      escena.dispositivos.map(
-
-        dispositivo=>({
-
-          nombre:dispositivo.nombre,
-
-          accion:
-
-            activar
-
-            ?
-
-            (
-
-              dispositivo.activo
-
-              ?
-
-              "activado"
-
-              :
-
-              "desactivado"
-
-            )
-
-            :
-
-            (
-
-              dispositivo.activo
-
-              ?
-
-              "desactivado"
-
-              :
-
-              "activado"
-
-            )
-
-        })
-
-      );
-
-    HistorialObserver.pausar();
-
-    escena.toggle();
-
-    HistorialObserver.reanudar();
-
-    HistorialService.agregarEscena(
-
-      escena.nombre,
-
-      activar
-
-      ?
-
-      "activada"
-
-      :
-
-      "desactivada",
-
-      detalles
-
-    );
 
   }
 

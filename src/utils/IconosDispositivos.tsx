@@ -1,7 +1,6 @@
-import IconoTV from "../assets/Dispositivos/Logo_Tv.svg?react";
-import IconoLuz from "../assets/Dispositivos/Logo_Luces.svg?react";
-import IconoVentiladores from "../assets/Dispositivos/Logo_Ventiladores.svg?react";
-import IconoAlarma from "../assets/Dispositivos/Logo_Alarma.svg?react";
+import IconoTV from "../assets/Seguridad/Logo_Ventana.svg?react";
+import IconoLuz from "../assets/Seguridad/Logo_Ventana.svg?react";
+import IconoEnchufe from "../assets/Seguridad/Logo_Ventana.svg?react";
 import IconoCamara from "../assets/Seguridad/Logo_Camara.svg?react";
 import IconoPuerta from "../assets/Seguridad/Logo_Puerta.svg?react";
 import IconoVentana from "../assets/Seguridad/Logo_Ventana.svg?react";
@@ -13,7 +12,7 @@ export function obtenerIconoDispositivo(
 
   switch(tipo){
 
-    case"tv":
+    case"televisores":
 
       return <IconoTV/>;
 
@@ -21,17 +20,13 @@ export function obtenerIconoDispositivo(
 
       return <IconoLuz/>;
 
-    case"ventiladores":
+    case"enchufes":
 
-      return <IconoVentiladores/>;
+      return <IconoEnchufe/>;
 
     case"camaras":
 
       return <IconoCamara/>;
-
-    case "alarmas":
-
-      return <IconoAlarma/>;
 
     case"puertas":
 

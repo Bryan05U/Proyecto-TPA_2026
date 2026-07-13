@@ -3,7 +3,6 @@ import { useState } from "react";
 import Header from "../components/Header";
 import CardEscena from "../components/CardEscena";
 import EditorEscena from "../components/EditorEscenas";
-import Confirmacion from "../components/Confirmacion";
 
 import { Escena } from "../domain/Escena";
 import { EscenasService } from "../services/EscenasServices";
@@ -20,61 +19,15 @@ function Escenas(){
 
   );
 
-  const[escenaEliminar,setEscenaEliminar]=
+  const[escenaEditando,setEscenaEditando]=useState<Escena|null>(null);
 
-    useState<Escena|null>(null);
-
-  const[errorNombre,setErrorNombre]=
-
-    useState(false);
-
-  const[escenaEditando,setEscenaEditando]=
-
-    useState<Escena|null>(null);
-
-  const[nuevaEscena,setNuevaEscena]=
-
-    useState(false);
+  const[nuevaEscena,setNuevaEscena]=useState(false);
 
   const guardarEscena=(
 
     escena:Escena
 
   )=>{
-
-    const nombreExiste=
-
-      escenas.some(
-
-        e=>
-
-          e.nombre.toLowerCase()===
-
-          escena.nombre.toLowerCase()
-
-          &&
-
-          (
-
-            nuevaEscena||
-
-            e.nombre!==escenaEditando?.nombre
-
-          )
-
-      );
-
-    if(nombreExiste){
-
-      setErrorNombre(
-
-        true
-
-      );
-
-      return;
-
-    }
 
     let nuevasEscenas:Escena[];
 
@@ -130,25 +83,35 @@ function Escenas(){
 
   )=>{
 
-    setEscenaEliminar(
+    if(
 
-      escena
+      !window.confirm(
+
+        "¿Eliminar esta escena?"
+
+      )
+
+    )return;
+
+    setEscenas(
+
+      EscenasService.eliminar(
+
+        escena.nombre
+
+      )
 
     );
 
   };
 
-  const activarEscena=(
+  const activarEscena = (
 
-    escena:Escena
+    escena: Escena
 
-  )=>{
+  ) => {
 
-    EscenasService.toggle(
-
-      escena
-
-    );
+    escena.toggle();
 
     setEscenas(
 
@@ -167,44 +130,6 @@ function Escenas(){
         titulo="ESCENAS"
 
       />
-
-      <div className="escenas-acciones">
-
-        <button
-
-          className="btn-nueva-escena"
-
-          onClick={()=>{
-
-            setNuevaEscena(
-
-              true
-
-            );
-
-            setEscenaEditando(
-
-              new Escena(
-
-                "Nueva escena",
-
-                []
-
-              )
-
-            );
-
-          }}
-
-          title="Nueva escena"
-
-        >
-
-          <IconoAnadir/>
-
-        </button>
-
-      </div>
 
       <div className="contenedor layout-escenas">
 
@@ -270,7 +195,43 @@ function Escenas(){
 
         }
 
-      </div>
+                onEditar={()=>{
+
+                  setNuevaEscena(
+
+          icono={<IconoAnadir/>}
+
+          classNameExtra="boton-seguridad boton-anadir"
+
+          onClick={()=>{
+
+            setNuevaEscena(
+
+              true
+
+            );
+
+            setEscenaEditando(
+
+              new Escena(
+
+                "Nueva escena",
+
+                []
+
+              )
+
+            );
+
+          }}
+
+        />
+
+      }
+
+      {
+
+        escenaEliminar&&
 
       {
 
@@ -305,96 +266,6 @@ function Escenas(){
             );
 
           }}
-
-        />
-
-      }
-
-      {
-
-        escenaEliminar&&
-
-        <Confirmacion
-
-          titulo="Eliminar escena"
-
-          mensaje={
-
-            `¿Seguro que deseas eliminar "${escenaEliminar.nombre}"?`
-
-          }
-
-          textoAceptar="Eliminar"
-
-          textoCancelar="Cancelar"
-
-          onAceptar={()=>{
-
-            setEscenas(
-
-              EscenasService.eliminar(
-
-                escenaEliminar.nombre
-
-              )
-
-            );
-
-            setEscenaEliminar(
-
-              null
-
-            );
-
-          }}
-
-          onCancelar={()=>
-
-            setEscenaEliminar(
-
-              null
-
-            )
-
-          }
-
-        />
-
-      }
-
-      {
-
-        errorNombre&&
-
-        <Confirmacion
-
-          titulo="Nombre no disponible"
-
-          mensaje="Ya existe una escena con ese nombre. Elige otro nombre."
-
-          textoAceptar="Aceptar"
-
-          textoCancelar={null}
-
-          onAceptar={()=>
-
-            setErrorNombre(
-
-              false
-
-            )
-
-          }
-
-          onCancelar={()=>
-
-            setErrorNombre(
-
-              false
-
-            )
-
-          }
 
         />
 

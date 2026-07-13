@@ -1,14 +1,10 @@
 import { Componente } from "./Componente";
-import type { Observer } from "./observer/Observer";
-import type { Subject } from "./observer/Subject";
 
-export class Dispositivo extends Componente implements Subject{
+export class Dispositivo extends Componente{
 
   tipo:string;
 
   activo:boolean;
-
-  private observadores:Observer[]=[];
 
   constructor(
     nombre:string,
@@ -23,72 +19,21 @@ export class Dispositivo extends Componente implements Subject{
 
   }
 
-  agregarObservador(
-    observer:Observer
-  ):void{
-
-    this.observadores.push(observer);
-
-  }
-
-  quitarObservador(
-    observer:Observer
-  ):void{
-
-    this.observadores=
-      this.observadores.filter(
-
-        o=>o!==observer
-
-      );
-
-  }
-
-  private notificar():void{
-
-    this.observadores.forEach(
-
-      observer=>
-
-        observer.actualizar(this)
-
-    );
-
-  }
-
   activar():void{
 
-    if(this.activo)return;
-
     this.activo=true;
-
-    this.notificar();
 
   }
 
   desactivar():void{
 
-    if(!this.activo)return;
-
     this.activo=false;
-
-    this.notificar();
 
   }
 
   toggle():void{
 
     this.activo=!this.activo;
-
-    this.notificar();
-
-  }
-
-  cambiarEstadoSinNotificacion(
-    activo:boolean
-  ):void{
-
-    this.activo=activo;
 
   }
 
@@ -97,6 +42,24 @@ export class Dispositivo extends Componente implements Subject{
   ):void{
 
     this.nombre=nombre;
+
+  }
+
+  static fromJSON(
+    obj:any
+  ):Dispositivo{
+
+    const dispositivo=new Dispositivo(
+
+      obj.nombre,
+
+      obj.tipo
+
+    );
+
+    dispositivo.activo=obj.activo;
+
+    return dispositivo;
 
   }
 

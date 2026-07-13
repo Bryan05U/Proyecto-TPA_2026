@@ -160,27 +160,17 @@ export class Escena extends Componente{
 
           );
 
-          if(real){
+        if(real){
 
-            if(dispositivo.activo){
+          real.desactivar();
 
-              real.desactivar();
+          DispositivosService.actualizar(
 
-            }
+            real
 
-            else{
+          );
 
-              real.activar();
-
-            }
-
-            DispositivosService.actualizar(
-
-              real
-
-            );
-
-          }
+        }
 
       }
 

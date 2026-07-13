@@ -19,12 +19,6 @@ function Historial(){
 
   const[eventos,setEventos]=useState<HistorialEvento[]>([]);
 
-  const[expandidos,setExpandidos]=
-    useState<number[]>([]);
-
-  const[mostrarConfirmacion,setMostrarConfirmacion]=
-    useState(false);
-
   useEffect(()=>{
 
     cargarEventos();
@@ -43,11 +37,19 @@ function Historial(){
 
   const borrarHistorial=()=>{
 
+    if(
+
+      !confirm(
+
+        "¿Seguro que quieres borrar todo el historial?"
+
+      )
+
+    )return;
+
     HistorialService.limpiar();
 
     setEventos([]);
-
-    setMostrarConfirmacion(false);
 
   };
 
@@ -71,15 +73,11 @@ function Historial(){
 
           d.tipo===evento.dispositivoTipo
 
-      );
+      !dispositivo.activo
 
     if(!dispositivo)return;
 
-    dispositivo.cambiarEstadoSinNotificacion(
-
-      !dispositivo.activo
-
-    );
+    dispositivo.toggle();
 
     DispositivosService.guardar(
 
@@ -103,44 +101,6 @@ function Historial(){
 
   };
 
-  const toggleExpandido=(
-
-    index:number
-
-  )=>{
-
-    if(
-
-      expandidos.includes(index)
-
-    ){
-
-      setExpandidos(
-
-        expandidos.filter(
-
-          i=>i!==index
-
-        )
-
-      );
-
-    }
-
-    else{
-
-      setExpandidos([
-
-        ...expandidos,
-
-        index
-
-      ]);
-
-    }
-
-  };
-
   return(
 
     <div className="layout">
@@ -153,11 +113,7 @@ function Historial(){
 
           className="btn-borrar-historial"
 
-          onClick={()=>
-
-            setMostrarConfirmacion(true)
-
-          }
+          onClick={borrarHistorial}
 
           title="Borrar historial"
 
@@ -181,133 +137,47 @@ function Historial(){
 
                 key={index}
 
-                className={
-
-                  evento.dispositivoTipo==="escena"
-
-                  ?
-
-                  "historial-card expandible"
-
-                  :
-
-                  "historial-card"
-
-                }
-
-                onClick={()=>{
-
-                  if(
-
-                    evento.dispositivoTipo===
-
-                    "escena"
-
-                  ){
-
-                    toggleExpandido(index);
-
-                  }
-
-                }}
+                className="historial-card"
 
               >
 
-                <div>
-
-                  <span>
-
-                    {
-
-                      evento.accion==="revertido"
-
-                      ?
-
-                      <>
-
-                        Se revirtió el estado del dispositivo <strong>{evento.dispositivoNombre}</strong> a las {evento.fecha}
-
-                      </>
-
-                      :
-
-                      evento.dispositivoTipo==="escena"
-
-                      ?
-
-                      <div className="historial-escena-titulo">
-
-                        <span className="flecha-expandir">
-
-                          {
-                            expandidos.includes(index)
-                            ?
-                            <FlechaAbajo/>
-                            :
-                            <FlechaDerecha/>
-                          }
-
-                        </span>
-
-                        <span className="historial-escena-texto">
-
-                          La escena <strong>{evento.dispositivoNombre}</strong> fue {evento.accion} a las {evento.fecha}
-
-                        </span>
-
-                      </div>
-
-                      :
-
-                      <>
-
-                        El dispositivo <strong>{evento.dispositivoNombre}</strong> fue {evento.accion} a las {evento.fecha}
-
-                      </>
-
-                    }
-
-                  </span>
+                <span>
 
                   {
 
+                    evento.accion==="revertido"
+
+                    ?
+
+                    <>
+
+                      Se revirtió el estado del dispositivo <strong>{evento.dispositivoNombre}</strong> a las {evento.fecha}
+
+                    </>
+
+                    :
+
                     evento.dispositivoTipo==="escena"
 
-                    &&
+                    ?
 
-                    expandidos.includes(index)
+                    <>
 
-                    &&
+                      La escena <strong>{evento.dispositivoNombre}</strong> fue {evento.accion} a las {evento.fecha}
 
-                    <div className="historial-detalles">
+                    </>
 
-                      {
+                    :
 
-                        evento.detalles.map(
+                    <>
 
-                          (detalle,i)=>
+                      El dispositivo <strong>{evento.dispositivoNombre}</strong> fue {evento.accion} a las {evento.fecha}
 
-                            <div
-
-                              key={i}
-
-                              className="detalle"
-
-                            >
-
-                              • {detalle.nombre} → {detalle.accion}
-
-                            </div>
-
-                        )
-
-                      }
-
-                    </div>
+                    </>
 
                   }
 
-                </div>
+                </span>
 
                 {
 
@@ -319,13 +189,7 @@ function Historial(){
 
                     className="btn-revertir"
 
-                    onClick={(e)=>{
-
-                      e.stopPropagation();
-
-                      revertir(evento);
-
-                    }}
+                    onClick={()=>revertir(evento)}
 
                     title="Revertir"
 

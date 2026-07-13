@@ -7,8 +7,6 @@ import CardDispositivoEscena from "./CardDispositivoEscena";
 import SelectorDispositivos from "./SelectorDispositivos.tsx";
 
 import IconoEscena from "../assets/Botones/Logo_Escena.svg?react";
-import IconoCerrar from "../assets/Botones/Logo_Cerrar.svg?react";
-import IconoAnadir from "../assets/Botones/Logo_Añadir.svg?react";
 
 import "../styles/EditorEscena.css";
 
@@ -159,11 +157,15 @@ function EditorEscena({
         <div className="editor-escena">
 
           <button
+
             className="btn-cerrar"
+
             onClick={onCancelar}
-            title="Cerrar"
+
           >
-            <IconoCerrar/>
+
+            ✕
+
           </button>
 
           <div className="editor-header">
@@ -288,21 +290,13 @@ function EditorEscena({
 
             className="card-agregar"
 
-            onClick={()=>
-
-              setMostrarSelector(
-
-                true
-
-              )
-
-            }
+            onClick={()=>setMostrarSelector(true)}
 
           >
 
-            <div className="card-agregar-icono">
+            <div className="card-agregar-mas">
 
-              <IconoAnadir/>
+              +
 
             </div>
 

@@ -21,79 +21,31 @@ function Dispositivos(){
 
   const categorias=[
 
+  const categorias = [
+
     "tv",
 
     "luces",
 
     "ventiladores",
 
-    "alarmas"
+    "aspiradora"
 
   ];
 
-  const[categoriaSeleccionada,setCategoriaSeleccionada]=
+  const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(categorias[0]);
 
-    useState(categorias[0]);
+  const [dispositivos, setDispositivos] = useState<Dispositivo[]>(
+    DispositivosService.obtenerTodos()
+  );
 
-  const[dispositivos,setDispositivos]=
+  const [mostrarFormulario, setMostrarFormulario] = useState(false);
 
-    useState<Dispositivo[]>(
-
-      DispositivosService.obtenerTodos()
-
-    );
-
-  const[mostrarFormulario,setMostrarFormulario]=
-
-    useState(false);
-
-  const[dispositivoEditando,setDispositivoEditando]=
-
-    useState<Dispositivo|null>(null);
-
-  const[dispositivoEliminar,setDispositivoEliminar]=
-
-    useState<Dispositivo|null>(null);
-
-  const[errorNombre,setErrorNombre]=
-
-    useState("");
-
-  const refrescar=()=>{
-
-    setDispositivos(
-
-      DispositivosService.obtenerTodos()
-
-    );
-
+  const refrescar = () => {
+    setDispositivos(DispositivosService.obtenerTodos());
   };
 
-  const agregarDispositivo=(
-
-    nombre:string
-
-  )=>{
-
-    if(
-
-      DispositivosService.existeNombre(
-
-        nombre
-
-      )
-
-    ){
-
-      setErrorNombre(
-
-        "Ya existe un dispositivo con ese nombre."
-
-      );
-
-      return;
-
-    }
+  const agregarDispositivo=(nombre:string)=>{
 
     const nuevo=
 
@@ -113,21 +65,11 @@ function Dispositivos(){
 
     refrescar();
 
-    setMostrarFormulario(
-
-      false
-
-    );
-
-    setErrorNombre("");
+    setMostrarFormulario(false);
 
   };
 
-  const toggleDispositivo=(
-
-    dispositivo:Dispositivo
-
-  )=>{
+  const toggleDispositivo=(dispositivo:Dispositivo)=>{
 
     const comando=
 
@@ -139,373 +81,118 @@ function Dispositivos(){
 
     comando.execute();
 
+    DispositivosService.actualizar(
+
+      dispositivo
+
+    );
+
     refrescar();
 
   };
 
-  const eliminarDispositivo=(
+  const eliminarDispositivo=(dispositivo:Dispositivo)=>{
 
-    dispositivo:Dispositivo
+    if(!confirm("¿Eliminar dispositivo?"))
 
-  )=>{
+      return;
 
-    setDispositivoEliminar(
-
-      dispositivo
-
-    );
-
-  };
-
-  const editarDispositivo=(
-
-    dispositivo:Dispositivo
-
-  )=>{
-
-    setErrorNombre("");
-
-    setDispositivoEditando(
+    DispositivosService.eliminar(
 
       dispositivo
 
     );
 
+    refrescar();
+
   };
 
-  const dispositivosFiltrados=
+  const editarDispositivo=(dispositivo:Dispositivo)=>{
 
-    dispositivos.filter(
+    const nuevoNombre=
 
-      d=>
+      prompt("Nuevo nombre");
 
-        d.tipo===categoriaSeleccionada
+    if(!nuevoNombre)
+
+      return;
+
+    dispositivo.cambiarNombre(
+
+      nuevoNombre
 
     );
 
-  return(
+    DispositivosService.actualizar(
 
+      dispositivo
+
+    );
+
+    refrescar();
+
+  };
+
+  const dispositivosFiltrados = dispositivos.filter(
+    d => d.tipo === categoriaSeleccionada
+  );
+
+  return (
     <div className="layout">
 
-      <Header titulo="DISPOSITIVOS"/>
-
-      <div className="dispositivos-layout">
-
-        <aside className="sidebar">
-
-          {
-
-            categorias.map(
-
-              categoria=>
-
-                <button
-
-                  key={categoria}
-
-                  className={
-
-                    categoria===categoriaSeleccionada
-
-                    ?
-
-                    "categoria activa"
+      <Header titulo="DISPOSITIVOS" />
 
                     :
 
-                    "categoria"
+        <aside className="sidebar">
 
-                  }
-
-                  onClick={()=>
-
-                    setCategoriaSeleccionada(
-
-                      categoria
-
-                    )
-
-                  }
-
-                >
-
-                  {
-
-                    categoria.toUpperCase()
-
-                  }
-
-                </button>
+          {categorias.map(categoria => (
+            <button
+              key={categoria}
+              className={
+                categoria === categoriaSeleccionada
+                  ? "categoria activa"
+                  : "categoria"
+              }
+              onClick={() => setCategoriaSeleccionada(categoria)}
+            >
+              {categoria.toUpperCase()}
+            </button>
+          ))}
 
             )
 
           }
-
-        </aside>
 
         <main className="contenido-dispositivos">
 
-          {
-
-            dispositivosFiltrados.map(
-
-              dispositivo=>
-
-                <CardDispositivo
-
-                  key={
-
-                    dispositivo.nombre+
-
-                    dispositivo.tipo
-
-                  }
-
-                  dispositivo={
-
-                    dispositivo
-
-                  }
-
-                  onToggle={()=>
-
-                    toggleDispositivo(
-
-                      dispositivo
-
-                    )
-
-                  }
-
-                  onEditar={()=>
-
-                    editarDispositivo(
-
-                      dispositivo
-
-                    )
-
-                  }
-
-                  onEliminar={()=>
-
-                    eliminarDispositivo(
-
-                      dispositivo
-
-                    )
-
-                  }
-
-                />
-
-            )
-
-          }
+          {dispositivosFiltrados.map(dispositivo => (
+            <CardDispositivo
+              key={dispositivo.nombre + dispositivo.tipo}
+              dispositivo={dispositivo}
+              onToggle={() => toggleDispositivo(dispositivo)}
+              onEditar={() => editarDispositivo(dispositivo)}
+              onEliminar={() => eliminarDispositivo(dispositivo)}
+            />
+          ))}
 
           <Boton
-
             nombre=""
-
-            icono={<IconoAnadir/>}
-
+            icono={<IconoAnadir />}
             classNameExtra="boton-seguridad boton-anadir"
-
-            onClick={()=>
-
-              setMostrarFormulario(
-
-                true
-
-              )
-
-            }
-
+            onClick={() => setMostrarFormulario(true)}
           />
 
         </main>
 
       </div>
 
-      {
-
-        mostrarFormulario&&
-
+      {mostrarFormulario && (
         <FormularioDispositivo
-
-          onCrear={
-
-            agregarDispositivo
-
-          }
-
-          onCerrar={()=>
-
-            setMostrarFormulario(
-
-              false
-
-            )
-
-          }
-
+          onCrear={agregarDispositivo}
+          onCerrar={() => setMostrarFormulario(false)}
         />
-
-      }
-
-      {
-
-        dispositivoEditando&&
-
-        <Editar
-
-          titulo="Editar dispositivo"
-
-          valorInicial={
-
-            dispositivoEditando.nombre
-
-          }
-
-          textoAceptar="Guardar"
-
-          textoCancelar="Cancelar"
-
-          error={
-
-            errorNombre
-
-          }
-
-          onAceptar={
-
-            nombre=>{
-
-              if(
-
-                nombre===""
-
-              )return;
-
-              if(
-
-                DispositivosService.existeNombre(
-
-                  nombre,
-
-                  dispositivoEditando.nombre
-
-                )
-
-              ){
-
-                setErrorNombre(
-
-                  "Ya existe un dispositivo con ese nombre."
-
-                );
-
-                return;
-
-              }
-
-              const nombreAnterior=
-
-                dispositivoEditando.nombre;
-
-              dispositivoEditando.cambiarNombre(
-
-                nombre
-
-              );
-
-              DispositivosService.renombrar(
-
-                nombreAnterior,
-
-                dispositivoEditando
-
-              );
-
-              refrescar();
-
-              setErrorNombre("");
-
-              setDispositivoEditando(
-
-                null
-
-              );
-
-            }
-
-          }
-
-          onCancelar={()=>{
-
-            setErrorNombre("");
-
-            setDispositivoEditando(
-
-              null
-
-            );
-
-          }}
-
-        />
-
-      }
-
-      {
-
-        dispositivoEliminar&&
-
-        <Confirmacion
-
-          titulo="Eliminar dispositivo"
-
-          mensaje={
-
-            `¿Seguro que deseas eliminar "${dispositivoEliminar.nombre}"?`
-
-          }
-
-          textoAceptar="Eliminar"
-
-          textoCancelar="Cancelar"
-
-          onAceptar={()=>{
-
-            DispositivosService.eliminar(
-
-              dispositivoEliminar
-
-            );
-
-            refrescar();
-
-            setDispositivoEliminar(
-
-              null
-
-            );
-
-          }}
-
-          onCancelar={()=>
-
-            setDispositivoEliminar(
-
-              null
-
-            )
-
-          }
-
-        />
-
-      }
+      )}
 
     </div>
 

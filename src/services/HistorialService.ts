@@ -30,18 +30,6 @@ export class HistorialService{
 
   }
 
-  private static obtenerFechaHora():string{
-
-    const ahora=new Date();
-
-    const hora=ahora.toLocaleTimeString();
-
-    const fecha=ahora.toLocaleDateString();
-
-    return `${hora} - ${fecha}`;
-
-  }
-
   static agregar(
     dispositivoNombre:string,
     dispositivoTipo:string,
@@ -60,59 +48,13 @@ export class HistorialService{
 
         accion,
 
-        this.obtenerFechaHora()
+        new Date().toLocaleString()
 
       )
 
     );
 
     this.guardar(historial);
-
-  }
-
-  static agregarEscena(
-
-    nombre:string,
-
-    accion:string,
-
-    detalles:{
-
-      nombre:string;
-
-      accion:string;
-
-    }[]
-
-  ):void{
-
-    const historial=
-
-      this.obtener();
-
-    historial.unshift(
-
-      new HistorialEvento(
-
-        nombre,
-
-        "escena",
-
-        accion,
-
-        this.obtenerFechaHora(),
-
-        detalles
-
-      )
-
-    );
-
-    this.guardar(
-
-      historial
-
-    );
 
   }
 
