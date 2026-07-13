@@ -1,41 +1,62 @@
-export class HistorialEvento {
+export class HistorialEvento{
 
-  dispositivoNombre: string;
+  dispositivoNombre:string;
 
-  dispositivoTipo: string;
+  dispositivoTipo:string;
 
-  accion: string;
+  accion:string;
 
-  fecha: string;
+  fecha:string;
+
+  detalles:{
+    nombre:string;
+    accion:string;
+  }[];
 
   constructor(
 
-    dispositivoNombre: string,
+    dispositivoNombre:string,
 
-    dispositivoTipo: string,
+    dispositivoTipo:string,
 
-    accion: string,
+    accion:string,
 
-    fecha: string
+    fecha:string,
 
-  ) {
+    detalles:{
+      nombre:string;
+      accion:string;
+    }[]=[]
 
-    this.dispositivoNombre =
+  ){
+
+    this.dispositivoNombre=
+
       dispositivoNombre;
 
-    this.dispositivoTipo =
+    this.dispositivoTipo=
+
       dispositivoTipo;
 
-    this.accion =
+    this.accion=
+
       accion;
 
-    this.fecha =
+    this.fecha=
+
       fecha;
+
+    this.detalles=
+
+      detalles;
+
   }
 
   static fromJSON(
-    obj: any
-  ): HistorialEvento {
+
+    obj:any
+
+  ):HistorialEvento{
 
     return new HistorialEvento(
 
@@ -45,8 +66,12 @@ export class HistorialEvento {
 
       obj.accion,
 
-      obj.fecha
+      obj.fecha,
+
+      obj.detalles??[]
 
     );
+
   }
+
 }

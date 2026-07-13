@@ -60,3 +60,159 @@
 
   fill: var(--color-iconos);
 }
+
+.btn-borrar-historial{
+
+  width:48px;
+
+  height:48px;
+
+  border:none;
+
+  outline:none;
+
+  box-shadow:none;
+
+  border-radius:50%;
+
+  background:var(--color-botones);
+
+  display:flex;
+
+  justify-content:center;
+
+  align-items:center;
+
+  cursor:pointer;
+
+  transition:.2s;
+
+}
+
+.btn-borrar-historial:hover{
+
+  transform:scale(1.08);
+
+}
+
+.btn-borrar-historial:focus,
+
+.btn-borrar-historial:focus-visible{
+
+  outline:none;
+
+  box-shadow:none;
+
+}
+
+.btn-borrar-historial svg{
+
+  width:40px;
+
+  height:40px;
+
+  fill: var(--color-iconos);
+
+}
+
+.historial-acciones{
+
+  width:100%;
+
+  display:flex;
+
+  justify-content:flex-start;
+
+  align-items:center;
+
+  padding:0 20px;
+
+  box-sizing:border-box;
+
+  margin:15px 0;
+
+}
+
+.historial-texto{
+
+  width:100%;
+
+}
+
+.historial-texto.clickable{
+
+  cursor:pointer;
+
+}
+
+.historial-detalles{
+
+  width:100%;
+
+  margin-top:15px;
+
+  padding-top:10px;
+
+  border-top:2px solid rgba(255,255,255,.2);
+
+}
+
+.detalle{
+
+  color:white;
+
+  margin-top:8px;
+
+  margin-left:12px;
+
+  font-size:18px;
+
+}
+
+.historial-escena-titulo{
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+  width:100%;
+
+}
+
+.flecha-expandir{
+
+  display:flex;
+
+  justify-content:center;
+
+  align-items:center;
+
+  flex-shrink:0;
+
+}
+
+.flecha-expandir svg{
+
+  width:28px;
+
+  height:28px;
+
+  fill:var(--color-iconos);
+
+  transition:.2s ease;
+
+}
+
+.historial-card.expandible:hover .flecha-expandir svg{
+
+  transform:scale(1.15);
+
+}
+
+.historial-card.expandible{
+
+  cursor:pointer;
+
+}
