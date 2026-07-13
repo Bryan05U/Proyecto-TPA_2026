@@ -1,172 +1,409 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import Header from "../components/Header";
-import Boton from "../components/Boton";
 import CardEscena from "../components/CardEscena";
-import FormularioEscena from "../components/FormularioEscenas";
+import EditorEscena from "../components/EditorEscenas";
+import Confirmacion from "../components/Confirmacion";
 
 import { Escena } from "../domain/Escena";
+import { EscenasService } from "../services/EscenasServices";
 
-import IconoAnadir from
-"../assets/Botones/Logo_Añadir.svg?react";
+import IconoAnadir from "../assets/Botones/Logo_Añadir.svg?react";
 
 import "../styles/Layout.css";
 
-function Escenas() {
+function Escenas(){
 
-  const [escenas, setEscenas] =
-    useState<Escena[]>(() => {
+  const[escenas,setEscenas]=useState(
 
-      const data =
-        localStorage.getItem("escenas");
+    EscenasService.obtener()
 
-      if (!data) return [];
+  );
 
-      return JSON.parse(data).map(
-        (e: any) =>
-          Escena.fromJSON(e)
+  const[escenaEliminar,setEscenaEliminar]=
+
+    useState<Escena|null>(null);
+
+  const[errorNombre,setErrorNombre]=
+
+    useState(false);
+
+  const[escenaEditando,setEscenaEditando]=
+
+    useState<Escena|null>(null);
+
+  const[nuevaEscena,setNuevaEscena]=
+
+    useState(false);
+
+  const guardarEscena=(
+
+    escena:Escena
+
+  )=>{
+
+    const nombreExiste=
+
+      escenas.some(
+
+        e=>
+
+          e.nombre.toLowerCase()===
+
+          escena.nombre.toLowerCase()
+
+          &&
+
+          (
+
+            nuevaEscena||
+
+            e.nombre!==escenaEditando?.nombre
+
+          )
+
       );
-    });
 
-  const [
-    mostrarFormulario,
+    if(nombreExiste){
 
-    setMostrarFormulario
+      setErrorNombre(
 
-  ] = useState(false);
+        true
 
-  // GUARDAR
+      );
 
-  useEffect(() => {
+      return;
 
-    localStorage.setItem(
-      "escenas",
-      JSON.stringify(escenas)
+    }
+
+    let nuevasEscenas:Escena[];
+
+    if(nuevaEscena){
+
+      nuevasEscenas=
+
+        EscenasService.agregar(
+
+          escena
+
+        );
+
+    }
+
+    else{
+
+      nuevasEscenas=
+
+        EscenasService.editar(
+
+          escenaEditando!.nombre,
+
+          escena
+
+        );
+
+    }
+
+    setEscenas(
+
+      nuevasEscenas
+
     );
 
-  }, [escenas]);
+    setEscenaEditando(
 
-  // CREAR
+      null
 
-  const agregarEscena = (
-    nombre: string
-  ) => {
+    );
 
-    const nueva =
-      new Escena(nombre);
+    setNuevaEscena(
 
-    setEscenas([
-      ...escenas,
-      nueva
-    ]);
+      false
 
-    setMostrarFormulario(false);
+    );
+
   };
 
-  // ELIMINAR
+  const eliminarEscena=(
 
-  const eliminarEscena = (
-    index: number
-  ) => {
+    escena:Escena
 
-    const copia = [...escenas];
+  )=>{
 
-    copia.splice(index, 1);
+    setEscenaEliminar(
 
-    setEscenas(copia);
+      escena
+
+    );
+
   };
 
-  // EDITAR
+  const activarEscena=(
 
-  const editarEscena = (
-    index: number
-  ) => {
+    escena:Escena
 
-    const nuevoNombre =
-      prompt("Nuevo nombre");
+  )=>{
 
-    if (!nuevoNombre) return;
+    EscenasService.toggle(
 
-    const copia = [...escenas];
+      escena
 
-    copia[index].nombre =
-      nuevoNombre;
+    );
 
-    setEscenas([...copia]);
+    setEscenas(
+
+      [...EscenasService.obtener()]
+
+    );
+
   };
 
-  return (
+  return(
 
     <div className="layout">
 
-      <Header titulo="ESCENAS" />
+      <Header
 
-      <div className="
-        contenedor
-        layout-escenas
-      ">
+        titulo="ESCENAS"
 
-        {/* ESCENAS */}
+      />
 
-        {escenas.map(
-          (escena, index) => (
+      <div className="escenas-acciones">
 
-          <CardEscena
+        <button
 
-            key={index}
+          className="btn-nueva-escena"
 
-            nombre={escena.nombre}
+          onClick={()=>{
 
-            onEditar={() =>
-              editarEscena(index)
-            }
+            setNuevaEscena(
 
-            onEliminar={() =>
-              eliminarEscena(index)
-            }
+              true
 
-          />
+            );
 
-        ))}
+            setEscenaEditando(
 
-        {/* BOTÓN AÑADIR */}
+              new Escena(
 
-        <Boton
+                "Nueva escena",
 
-          nombre=""
+                []
 
-          icono={<IconoAnadir />}
+              )
 
-          onClick={() =>
-            setMostrarFormulario(true)
-          }
+            );
 
-          classNameExtra="
-            boton-seguridad
-            boton-anadir
-          "
-        />
+          }}
+
+          title="Nueva escena"
+
+        >
+
+          <IconoAnadir/>
+
+        </button>
 
       </div>
 
-      {/* FORMULARIO */}
+      <div className="contenedor layout-escenas">
 
-      {mostrarFormulario && (
+        {
 
-        <FormularioEscena
+          escenas.map(
 
-          onCrear={agregarEscena}
+            escena=>
 
-          onCerrar={() =>
-            setMostrarFormulario(false)
+              <CardEscena
+
+                key={
+
+                  escena.nombre
+
+                }
+
+                escena={
+
+                  escena
+
+                }
+
+                onToggle={()=>
+
+                  activarEscena(
+
+                    escena
+
+                  )
+
+                }
+
+                onEditar={()=>{
+
+                  setNuevaEscena(
+
+                    false
+
+                  );
+
+                  setEscenaEditando(
+
+                    escena
+
+                  );
+
+                }}
+
+                onEliminar={()=>
+
+                  eliminarEscena(
+
+                    escena
+
+                  )
+
+                }
+
+              />
+
+          )
+
+        }
+
+      </div>
+
+      {
+
+        escenaEditando&&
+
+        <EditorEscena
+
+          escena={
+
+            escenaEditando
+
+          }
+
+          onGuardar={
+
+            guardarEscena
+
+          }
+
+          onCancelar={()=>{
+
+            setEscenaEditando(
+
+              null
+
+            );
+
+            setNuevaEscena(
+
+              false
+
+            );
+
+          }}
+
+        />
+
+      }
+
+      {
+
+        escenaEliminar&&
+
+        <Confirmacion
+
+          titulo="Eliminar escena"
+
+          mensaje={
+
+            `¿Seguro que deseas eliminar "${escenaEliminar.nombre}"?`
+
+          }
+
+          textoAceptar="Eliminar"
+
+          textoCancelar="Cancelar"
+
+          onAceptar={()=>{
+
+            setEscenas(
+
+              EscenasService.eliminar(
+
+                escenaEliminar.nombre
+
+              )
+
+            );
+
+            setEscenaEliminar(
+
+              null
+
+            );
+
+          }}
+
+          onCancelar={()=>
+
+            setEscenaEliminar(
+
+              null
+
+            )
+
           }
 
         />
 
-      )}
+      }
+
+      {
+
+        errorNombre&&
+
+        <Confirmacion
+
+          titulo="Nombre no disponible"
+
+          mensaje="Ya existe una escena con ese nombre. Elige otro nombre."
+
+          textoAceptar="Aceptar"
+
+          textoCancelar={null}
+
+          onAceptar={()=>
+
+            setErrorNombre(
+
+              false
+
+            )
+
+          }
+
+          onCancelar={()=>
+
+            setErrorNombre(
+
+              false
+
+            )
+
+          }
+
+        />
+
+      }
 
     </div>
+
   );
+
 }
 
 export default Escenas;

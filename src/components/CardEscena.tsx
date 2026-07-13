@@ -1,55 +1,187 @@
-import BaseCard from "./BaseCard";
+import { Escena } from "../domain/Escena";
 
-import IconoEditar from
-"../assets/Botones/Logo_Editar.svg?react";
+import { obtenerIconoDispositivo } from "../utils/IconosDispositivos";
 
-import IconoBorrar from
-"../assets/Botones/Logo_Borrar.svg?react";
+import IconoEditar from "../assets/Botones/Logo_Editar.svg?react";
+import IconoBorrar from "../assets/Botones/Logo_Borrar.svg?react";
+import IconoEscena from "../assets/Botones/Logo_Escena.svg?react";
 
-type Props = {
+import "../styles/CardEscena.css";
 
-  nombre: string;
+type Props={
 
-  onEditar: () => void;
+  escena:Escena;
 
-  onEliminar: () => void;
+  onToggle:()=>void;
+
+  onEditar:()=>void;
+
+  onEliminar:()=>void;
+
 };
 
 function CardEscena({
-  nombre,
+
+  escena,
+
+  onToggle,
+
   onEditar,
+
   onEliminar
-}: Props) {
 
-  return (
+}:Props){
 
-    <BaseCard
+  const activa = escena.estaActiva();
 
-      titulo={nombre}
+  return(
 
-      acciones={
-        <>
+    <div className="card-escena">
 
-          <button
-            className="accion-btn"
-            onClick={onEditar}
-          >
-            <IconoEditar />
-          </button>
+      <div className="card-escena-header">
 
-          <button
-            className="accion-btn"
-            onClick={onEliminar}
-          >
-            <IconoBorrar />
-          </button>
+        <h2>
 
-        </>
-      }
+          {escena.nombre}
 
-    />
+        </h2>
+
+      </div>
+
+      <div className="card-escena-icono">
+
+        <IconoEscena/>
+
+      </div>
+
+      <div className="card-escena-info">
+
+        {escena.dispositivos.length} dispositivo{
+
+          escena.dispositivos.length!==1&&"s"
+
+        }
+
+      </div>
+
+      <div className="card-escena-preview">
+
+        {
+
+          escena.dispositivos
+
+          .slice(
+
+            0,
+
+            4
+
+          )
+
+          .map(
+
+            dispositivo=>
+
+              <div
+
+                key={
+
+                  dispositivo.nombre+
+
+                  dispositivo.tipo
+
+                }
+
+                className="preview-icono"
+
+              >
+
+                {
+
+                  obtenerIconoDispositivo(
+
+                    dispositivo.tipo
+
+                  )
+
+                }
+
+              </div>
+
+          )
+
+        }
+
+      </div>
+
+      <button
+
+        className={
+
+          activa
+
+          ?
+
+          "btn-ejecutar activo"
+
+          :
+
+          "btn-ejecutar"
+
+        }
+
+        onClick={onToggle}
+
+      >
+
+        {
+
+          activa
+
+          ?
+
+          "ACTIVA"
+
+          :
+
+          "EJECUTAR"
+
+        }
+
+      </button>
+
+      <div className="card-escena-acciones">
+
+        <button
+
+          className="accion-btn"
+
+          onClick={onEditar}
+
+        >
+
+          <IconoEditar/>
+
+        </button>
+
+        <button
+
+          className="accion-btn"
+
+          onClick={onEliminar}
+
+        >
+
+          <IconoBorrar/>
+
+        </button>
+
+      </div>
+
+    </div>
 
   );
+
 }
 
 export default CardEscena;
